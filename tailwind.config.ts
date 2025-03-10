@@ -7,89 +7,98 @@ const {
 } = require("tailwindcss/lib/util/flattenColorPalette");
 
 export default {
-    content: [
+  content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-  	extend: {
-		animation: {
-			scroll:
-				"scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
-		},
-		keyframes: {
-			scroll: {
-				to: {
-				transform: "translate(calc(-50% - 0.5rem))",
-				},
-			},
-		},
-  		colors: {
-			"light-carmine-pink": "#E4676E",
-    		"seashell": "#FCF5EB",
-    		"timberwolf": "#DAD9D9",
-  			background: 'hsl(var(--background))',
-  			foreground: 'hsl(var(--foreground))',
-  			card: {
-  				DEFAULT: 'hsl(var(--card))',
-  				foreground: 'hsl(var(--card-foreground))'
-  			},
-  			popover: {
-  				DEFAULT: 'hsl(var(--popover))',
-  				foreground: 'hsl(var(--popover-foreground))'
-  			},
-  			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
-  			},
-  			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
-  				foreground: 'hsl(var(--secondary-foreground))'
-  			},
-  			muted: {
-  				DEFAULT: 'hsl(var(--muted))',
-  				foreground: 'hsl(var(--muted-foreground))'
-  			},
-  			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
-  				foreground: 'hsl(var(--accent-foreground))'
-  			},
-  			destructive: {
-  				DEFAULT: 'hsl(var(--destructive))',
-  				foreground: 'hsl(var(--destructive-foreground))'
-  			},
-  			border: 'hsl(var(--border))',
-  			input: 'hsl(var(--input))',
-  			ring: 'hsl(var(--ring))',
-  			chart: {
-  				'1': 'hsl(var(--chart-1))',
-  				'2': 'hsl(var(--chart-2))',
-  				'3': 'hsl(var(--chart-3))',
-  				'4': 'hsl(var(--chart-4))',
-  				'5': 'hsl(var(--chart-5))'
-  			}
-  		},
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		},
-		fontFamily: {
+    extend: {
+      animation: {
+        scroll:
+          "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+      },
+      keyframes: {
+        scroll: {
+          to: {
+            transform: "translate(calc(-50% - 0.5rem))",
+          },
+        },
+      },
+      colors: {
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          50: "#F2FBFF",
+          100: "#E7F4FA",
+          200: "#47A5C9",
+          300: "#093F60",
+          400: "#09202E",
+        },
+        secondary: {
+          50: "#ECE7FC",
+          100: "#DBD0FA",
+          200: "#AA88F1",
+          300: "#8B57EB",
+          400: "#442B73",
+        },
+        neutral: {
+          50: "#FFFFFF",
+          100: "#FAFAFA",
+          200: "#E9EDF1",
+          250: "#E0E5E8",
+          300: "#C7CCCF",
+          400: "#C4CACE",
+          500: "#9DA4A8",
+          600: "#768085",
+          700: "#636A6D",
+          800: "#474E50",
+          900: "#262B2D",
+          1000: "#141718",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      fontFamily: {
         quicksand: ["Quicksand", "sans-serif"],
       },
-  	}
+      fontSize: {
+        h1: ["41px", "120%"],
+        h2: ["32px", "120%"],
+        h3: ["28px", "120%"],
+        h4: ["25px", "120%"],
+        h5: ["20px", "120%"],
+        "h1-sb": ["41px", "120%"],
+        "h2-sb": ["32px", "120%"],
+        "h3-sb": ["28px", "120%"],
+        "h4-sb": ["25px", "120%"],
+        "h5-sb": ["20px", "120%"],
+        "body-1": ["18px", "120%"],
+        "body-2": ["16px", "120%"],
+        "body-3": ["14px", "120%"],
+        "body-4": ["13px", "120%"],
+        "body-5": ["12px", "120%"],
+        "body-1-sb": ["18px", "120%"],
+        "body-2-sb": ["16px", "120%"],
+        "body-3-sb": ["14px", "120%"],
+        "body-4-sb": ["13px", "120%"],
+        "body-5-sb": ["12px", "120%"],
+      },
+    },
   },
-  plugins: [require("tailwindcss-animate"), addVariablesForColors], 
+  plugins: [require("tailwindcss-animate"), addVariablesForColors],
 } satisfies Config;
 
 function addVariablesForColors({ addBase, theme }: any) {
-	let allColors = flattenColorPalette(theme("colors"));
-	let newVars = Object.fromEntries(
-	  Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-	);
-   
-	addBase({
-	  ":root": newVars,
-	});
-  }
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}
