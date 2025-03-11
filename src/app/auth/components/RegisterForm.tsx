@@ -15,24 +15,39 @@ import { Separator } from "@/components/ui/separator"
 
 const formSchema = z
   .object({
+    fullName: z.string().min(2, {
+      message: "Nama harus minimal 2 karakter.",
+    }),
     email: z.string().email({
       message: "Email tidak valid.",
     }),
     password: z.string().min(8, {
       message: "Kata sandi harus minimal 8 karakter.",
     }),
-})
-  
+    confirmPassword: z.string().min(8, {
+      message: "Konfirmasi kata sandi harus minimal 8 karakter.",
+    }),
+    terms: z.literal(true, {
+      errorMap: () => ({ message: "Anda harus menyetujui syarat dan ketentuan." }),
+    }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Kata sandi tidak cocok.",
+    path: ["confirmPassword"],
+  })
 
-export function LoginForm() {
+export function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      fullName: "",
       email: "",
       password: "",
+      confirmPassword: "",
+      terms: true,
     },
   })
 
@@ -43,10 +58,41 @@ export function LoginForm() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-center text-3xl font-bold mb-12">Selamat Datang Kembali!</h2>
+      <h2 className="text-center text-3xl font-bold mb-12">Buat Akun Anda!</h2>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="fullName"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className="relative">
+                    <div className="absolute left-3 top-3 text-gray-400">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                      </svg>
+                    </div>
+                    <Input placeholder="Nama Lengkap" className="pl-10" {...field} />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="email"
@@ -120,8 +166,68 @@ export function LoginForm() {
             )}
           />
 
-            <Button type="submit" className="w-full bg-[#47A5C9] hover:bg-[#093F60] py-6 mt-8">
-              Masuk
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className="relative">
+                    <div className="absolute left-3 top-3 text-gray-400">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                      </svg>
+                    </div>
+                    <Input
+                      placeholder="Konfirmasi kata sandi"
+                      type={showConfirmPassword ? "text" : "password"}
+                      className="pl-10 pr-10"
+                      {...field}
+                    />
+                    <div
+                      className="absolute right-3 top-3 cursor-pointer text-gray-400"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    >
+                      {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </div>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="terms"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-start space-y-0 px-2 py-4">
+                <FormControl>
+                  <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <p className="text-xs font-normal">
+                    Dengan mendaftar, Anda setuju dengan <a href="#"><span className="text-[#47A5C9]">syarat dan ketentuan</span></a>.
+                  </p>
+                  <FormMessage />
+                </div>
+              </FormItem>
+            )}
+          />
+
+            <Button type="submit" className="w-full bg-[#47A5C9] hover:bg-[#093F60] py-6">
+              Daftar
             </Button>
         </form>
       </Form>
@@ -134,9 +240,9 @@ export function LoginForm() {
 
       <div className="text-center">
         <p className="text-sm">
-          Belum punya akun?{" "}
-          <Link href="/auth/register" className="text-sky-500 hover:underline">
-            Daftar
+          Sudah punya akun?{" "}
+          <Link href="/auth/login" className="text-sky-500 hover:underline">
+            Masuk
           </Link>
         </p>
       </div>
