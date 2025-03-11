@@ -94,7 +94,7 @@ export function VerificationForm() {
 
       <div className="flex justify-center gap-2">
         {[0, 1, 2, 3, 4].map((index) => (
-          <div key={index} className="relative h-16 w-16 overflow-hidden rounded-lg bg-purple-100">
+          <div key={index} className="relative h-16 w-16 overflow-hidden rounded-lg bg-secondary-50">
             <input
               ref={(el) => {
                 inputRefs.current[index] = el;

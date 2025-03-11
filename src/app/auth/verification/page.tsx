@@ -1,6 +1,6 @@
 import { VerificationForm } from "../components/VerificationForm"
 
-export default function Register() {
+export default function Verification() {
   return (
     <VerificationForm />
   )
