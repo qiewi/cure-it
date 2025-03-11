@@ -8,7 +8,6 @@ import { z } from "zod"
 import { Eye, EyeOff } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
@@ -120,7 +119,7 @@ export function LoginForm() {
             )}
           />
 
-            <Button type="submit" className="w-full bg-[#47A5C9] hover:bg-[#093F60] py-6 mt-8">
+            <Button type="submit" className="w-full bg-primary-200 hover:bg-primary-300 py-6 mt-8">
               Masuk
             </Button>
         </form>
@@ -135,7 +134,7 @@ export function LoginForm() {
       <div className="text-center">
         <p className="text-sm">
           Belum punya akun?{" "}
-          <Link href="/auth/register" className="text-sky-500 hover:underline">
+          <Link href="/auth/register" className="text-primary-200 hover:underline">
             Daftar
           </Link>
         </p>

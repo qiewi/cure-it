@@ -218,7 +218,7 @@ export function RegisterForm() {
                 </FormControl>
                 <div className="space-y-1 leading-none">
                   <p className="text-xs font-normal">
-                    Dengan mendaftar, Anda setuju dengan <a href="#"><span className="text-[#47A5C9]">syarat dan ketentuan</span></a>.
+                    Dengan mendaftar, Anda setuju dengan <a href="#"><span className="text-primary-200">syarat dan ketentuan</span></a>.
                   </p>
                   <FormMessage />
                 </div>
@@ -226,7 +226,7 @@ export function RegisterForm() {
             )}
           />
 
-            <Button type="submit" className="w-full bg-primary-200 hover:bg-[#093F60] py-6">
+            <Button type="submit" className="w-full bg-primary-200 hover:bg-primary-300 py-6">
               Daftar
             </Button>
         </form>
@@ -241,7 +241,7 @@ export function RegisterForm() {
       <div className="text-center">
         <p className="text-sm">
           Sudah punya akun?{" "}
-          <Link href="/auth/login" className="text-sky-500 hover:underline">
+          <Link href="/auth/login" className="text-primary-200 hover:underline">
             Masuk
           </Link>
         </p>
