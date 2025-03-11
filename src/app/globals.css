@@ -37,7 +37,6 @@
   font-weight: 700;
   font-style: normal;
 }
-
 :root {
   --font-sans: "Quicksand", sans-serif;
   --background: oklch(1 0 0);
@@ -73,6 +72,34 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --primary-50: #F2FBFF;
+  --primary-100: #E7F4FA;
+  --primary-200: #47A5C9;
+  --primary-300: #093F60;
+  --primary-400: #09202E;
+
+  --secondary-50: #ECE7FC;
+  --secondary-100: #DBD0FA;
+  --secondary-200: #AA88F1;
+  --secondary-300: #8B57EB;
+  --secondary-400: #442B73;
+
+  --neutral-50: #FFFFFF;
+  --neutral-100: #FAFAFA;
+  --neutral-200: #E9EDF1;
+  --neutral-250: #E0E5E8;
+  --neutral-300: #C7CCCF;
+  --neutral-400: #C4CACE;
+  --neutral-500: #9DA4A8;
+  --neutral-600: #768085;
+  --neutral-700: #636A6D;
+  --neutral-800: #474E50;
+  --neutral-900: #262B2D;
+  --neutral-1000: #141718;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
 }
 
 @theme inline {
@@ -105,10 +132,28 @@
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
+  --color-primary-50: var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-secondary-50: var(--secondary-50);
+  --color-secondary-100: var(--secondary-100);
+  --color-secondary-200: var(--secondary-200);
+  --color-secondary-300: var(--secondary-300);
+  --color-secondary-400: var(--secondary-400);
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-250: var(--neutral-250);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+  --color-neutral-1000: var(--neutral-1000);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

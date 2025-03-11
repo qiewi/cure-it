@@ -226,7 +226,7 @@ export function RegisterForm() {
             )}
           />
 
-            <Button type="submit" className="w-full bg-[#47A5C9] hover:bg-[#093F60] py-6">
+            <Button type="submit" className="w-full bg-primary-200 hover:bg-[#093F60] py-6">
               Daftar
             </Button>
         </form>
