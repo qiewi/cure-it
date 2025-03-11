@@ -2,9 +2,6 @@ import type { Config } from "tailwindcss";
 
 const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
-const {
-  default: flattenColorPalette,
-} = require("tailwindcss/lib/util/flattenColorPalette");
 
 export default {
   content: [
@@ -26,37 +23,35 @@ export default {
         },
       },
       colors: {
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
         primary: {
-          50: "#F2FBFF",
-          100: "#E7F4FA",
-          200: "#47A5C9",
-          300: "#093F60",
-          400: "#09202E",
+          "50": "#F2FBFF",
+          "100": "#E7F4FA",
+          "200": "#47A5C9",
+          "300": "#093F60",
+          "400": "#09202E",
         },
         secondary: {
-          50: "#ECE7FC",
-          100: "#DBD0FA",
-          200: "#AA88F1",
-          300: "#8B57EB",
-          400: "#442B73",
+          "50": "#ECE7FC",
+          "100": "#DBD0FA",
+          "200": "#AA88F1",
+          "300": "#8B57EB",
+          "400": "#442B73",
         },
         neutral: {
-          50: "#FFFFFF",
-          100: "#FAFAFA",
-          200: "#E9EDF1",
-          250: "#E0E5E8",
-          300: "#C7CCCF",
-          400: "#C4CACE",
-          500: "#9DA4A8",
-          600: "#768085",
-          700: "#636A6D",
-          800: "#474E50",
-          900: "#262B2D",
-          1000: "#141718",
+          "50": "#FFFFFF",
+          "100": "#FAFAFA",
+          "200": "#E9EDF1",
+          "250": "#E0E5E8",
+          "300": "#C7CCCF",
+          "400": "#C4CACE",
+          "500": "#9DA4A8",
+          "600": "#768085",
+          "700": "#636A6D",
+          "800": "#474E50",
+          "900": "#262B2D",
+          "1000": "#141718",
         },
-      },
+      },      
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -89,16 +84,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), addVariablesForColors],
+  plugins: [require("tailwindcss-animate")],
 } satisfies Config;
-
-function addVariablesForColors({ addBase, theme }: any) {
-  let allColors = flattenColorPalette(theme("colors"));
-  let newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-  );
-
-  addBase({
-    ":root": newVars,
-  });
-}
