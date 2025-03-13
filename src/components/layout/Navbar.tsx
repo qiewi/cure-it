@@ -44,7 +44,7 @@ export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien"
             </Link>
           </Button>
           <Button variant="ghost" size="icon" className="rounded-xl" asChild>
-            <Link href="/chat">
+            <Link href="/curebot">
               <MessageSquare className="h-5 w-5" />
               <span className="sr-only">Chat</span>
             </Link>
