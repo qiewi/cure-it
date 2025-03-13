@@ -5,9 +5,12 @@ import type React from "react"
 import { useState, useRef, useEffect } from "react"
 import { ArrowUp, Star, Users } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import Logo from "@Images/logo.svg"
+import Curebot from "@Images/curebot.svg"
 
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
@@ -30,6 +33,8 @@ const doctors = [
 ]
 
 export default function ChatPage() {
+  const [showWelcome, setShowWelcome] = useState(true)
+  const [termsAccepted, setTermsAccepted] = useState(false)
   const [messages, setMessages] = useState<{ type: "system" | "user"; content: string }[]>([
     { type: "system", content: "What concerns you today?" },
   ])
@@ -59,6 +64,55 @@ export default function ChatPage() {
     }
   }
 
+  if (showWelcome) {
+    return (
+      <div className="flex h-full flex-col items-center justify-center bg-white p-4">
+        <div className="w-full max-w-md space-y-8 px-4">
+          <div className="text-left border-b pb-4">
+            <div className="relative mx-auto h-64 w-64">
+              <Image
+                src={Curebot}
+                alt="Welcome Illustration"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <h2 className="mt-6 text-2xl font-bold">Halo, senang melayani Anda!</h2>
+            <p className="mt-2 text-gray-600">
+              Saya akan membantu dalam memeriksa gejala dan memberikan rekomendasi pengobatan.
+            </p>
+          </div>
+
+          <div className="flex items-center text-left space-x-3">
+            <Checkbox
+              id="terms"
+              checked={termsAccepted}
+              onCheckedChange={(checked) => {
+                setTermsAccepted(checked === true)
+              }}
+            />
+            <label htmlFor="terms" className="text-sm text-left">
+              Saya menyetujui{" "}
+              <Link href="/terms" className="text-primary-200 hover:underline">
+                Syarat dan Ketentuan
+              </Link>{" "}
+              penggunaan
+            </label>
+          </div>
+
+          <Button
+            onClick={() => setShowWelcome(false)}
+            className="w-full bg-black text-white hover:bg-black/90"
+            size="lg"
+            disabled={!termsAccepted}
+          >
+            Mulai Chat
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="relative flex h-full">
       {/* Main Chat Container */}
@@ -68,7 +122,6 @@ export default function ChatPage() {
           isRecommendationsOpen ? "w-full md:w-1/2" : "w-full",
         )}
       >
-        {/* Chat Header */}
         <div className="relative flex items-center sm:justify-start md:justify-center p-4 px-8">
           <h1 className="text-2xl font-bold">CureBot</h1>
           {!isRecommendationsOpen && (
@@ -82,7 +135,6 @@ export default function ChatPage() {
           )}
         </div>
 
-        {/* Chat Messages */}
         <div className="flex-1 overflow-y-auto">
           <div className="mx-auto max-w-3xl px-4">
             <div className="space-y-4 py-4">
@@ -117,7 +169,6 @@ export default function ChatPage() {
           </div>
         </div>
 
-        {/* Input Area */}
         <div className="p-4 mb-8">
           <div className="mx-auto max-w-3xl">
             <div className="flex gap-2">
@@ -141,7 +192,7 @@ export default function ChatPage() {
       <div
         className={cn(
           "fixed inset-0 z-50 bg-white transition-transform duration-300 ease-in-out md:absolute md:inset-auto md:right-0 md:top-0 md:bottom-0 md:h-full md:w-1/2 md:border-l",
-          isRecommendationsOpen ? "translate-x-0" : "translate-x-full",
+          isRecommendationsOpen ? "translate-x-0" : "translate-x-full md:hidden",
         )}
       >
         <div className="flex h-full flex-col">
