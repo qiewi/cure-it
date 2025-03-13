@@ -1,10 +1,12 @@
 "use client"
 
+import type React from "react"
+
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import Logo from "@Images/logo.svg"
-import { Bell, ChevronDown, Home, LogOut, Menu, MessageSquare, Settings, List } from "lucide-react"
+import { Bell, ChevronDown, Home, Menu, MessageSquare, Settings, List } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -14,6 +16,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 const locations = ["Jakarta Pusat", "Jakarta Barat", "Jakarta Timur", "Jakarta Selatan", "Jakarta Utara"]
 
 interface NavbarProps {
+  children: React.ReactNode
   user?: {
     name: string
     role: string
@@ -21,7 +24,7 @@ interface NavbarProps {
   }
 }
 
-export function Navbar({ user = { name: "Mr. Kure Ite", role: "Pasien" } }: NavbarProps) {
+export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien" } }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
@@ -41,9 +44,9 @@ export function Navbar({ user = { name: "Mr. Kure Ite", role: "Pasien" } }: Navb
             </Link>
           </Button>
           <Button variant="ghost" size="icon" className="rounded-xl" asChild>
-            <Link href="/messages">
+            <Link href="/chat">
               <MessageSquare className="h-5 w-5" />
-              <span className="sr-only">Messages</span>
+              <span className="sr-only">Chat</span>
             </Link>
           </Button>
           <Button variant="ghost" size="icon" className="rounded-xl" asChild>
@@ -54,9 +57,11 @@ export function Navbar({ user = { name: "Mr. Kure Ite", role: "Pasien" } }: Navb
           </Button>
         </div>
         <div className="flex flex-col items-center gap-4">
-          <Button variant="ghost" size="icon" className="rounded-xl">
-            <Settings className="h-5 w-5" />
-            <span className="sr-only">Settings</span>
+          <Button variant="ghost" size="icon" className="rounded-xl" asChild>
+            <Link href="/settings">
+              <Settings className="h-5 w-5" />
+              <span className="sr-only">Settings</span>
+            </Link>
           </Button>
         </div>
       </div>
@@ -81,7 +86,7 @@ export function Navbar({ user = { name: "Mr. Kure Ite", role: "Pasien" } }: Navb
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="flex items-center gap-2">
-                    <span>Lokasi</span>
+                    <span className="font-light">Lokasi</span>
                     <ChevronDown className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
@@ -122,7 +127,7 @@ export function Navbar({ user = { name: "Mr. Kure Ite", role: "Pasien" } }: Navb
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="flex items-center gap-2">
-                    <span>Lokasi</span>
+                    <span className="font-light">Lokasi</span>
                     <ChevronDown className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
@@ -160,7 +165,7 @@ export function Navbar({ user = { name: "Mr. Kure Ite", role: "Pasien" } }: Navb
                           <span className="text-xl">Home</span>
                         </Link>
                         <Link
-                          href="/messages"
+                          href="/chat"
                           className="flex items-center gap-3 rounded-lg border-b px-3 py-4 text-black transition-colors hover:bg-accent"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
@@ -178,7 +183,6 @@ export function Navbar({ user = { name: "Mr. Kure Ite", role: "Pasien" } }: Navb
                       </div>
                     </nav>
 
-                    
                     {/* Lower Section */}
                     <div>
                       <Link
@@ -216,7 +220,7 @@ export function Navbar({ user = { name: "Mr. Kure Ite", role: "Pasien" } }: Navb
         </header>
 
         {/* Main Content Area */}
-        <main className="flex-1 bg-white p-4">{/* Your page content goes here */}</main>
+        <main className="flex-1">{children}</main>
       </div>
     </div>
   )
