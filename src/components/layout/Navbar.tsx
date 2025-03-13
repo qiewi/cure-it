@@ -58,10 +58,6 @@ export function Navbar({ user = { name: "Mr. Kure Ite", role: "Pasien" } }: Navb
             <Settings className="h-5 w-5" />
             <span className="sr-only">Settings</span>
           </Button>
-          <Button variant="ghost" size="icon" className="rounded-xl text-red-500">
-            <LogOut className="h-5 w-5" />
-            <span className="sr-only">Logout</span>
-          </Button>
         </div>
       </div>
 
@@ -136,6 +132,10 @@ export function Navbar({ user = { name: "Mr. Kure Ite", role: "Pasien" } }: Navb
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
+              <Button variant="ghost" size="icon" className="rounded-full">
+                <Bell className="h-5 w-5" />
+                <span className="sr-only">Notifications</span>
+              </Button>
 
               <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                 <SheetTrigger asChild>
@@ -147,78 +147,66 @@ export function Navbar({ user = { name: "Mr. Kure Ite", role: "Pasien" } }: Navb
                 <SheetContent side="right" className="w-[300px] p-0">
                   <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
 
-                  {/* Profile Section */}
-                  <Link
-                    href="/profile"
-                    className="block border-b p-4 transition-colors hover:bg-accent"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <div className="flex items-center gap-4">
-                      <Avatar className="h-12 w-12">
-                        <AvatarImage src={user.image} />
-                        <AvatarFallback>
-                          {user.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex flex-col">
-                        <span className="font-medium">{user.name}</span>
-                        <span className="text-sm text-muted-foreground">{user.role}</span>
-                      </div>
-                    </div>
-                  </Link>
-
                   {/* Navigation Section */}
-                  <div className="flex h-[calc(100vh-88px)] flex-col justify-between">
-                    <nav className="p-2">
-                      <div className="flex flex-col gap-2">
+                  <div className="flex h-full flex-col justify-between">
+                    <nav className="p-2 py-8">
+                      <div className="flex flex-col">
                         <Link
                           href="/"
-                          className="flex items-center gap-3 rounded-lg px-3 py-2 text-black transition-colors hover:bg-accent"
+                          className="flex items-center gap-3 rounded-lg border-b px-3 py-4 text-black transition-colors hover:bg-accent"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
-                          <Home className="h-5 w-5" />
-                          <span>Home</span>
+                          <Home className="h-6 w-6" />
+                          <span className="text-xl">Home</span>
                         </Link>
                         <Link
                           href="/messages"
-                          className="flex items-center gap-3 rounded-lg px-3 py-2 text-black transition-colors hover:bg-accent"
+                          className="flex items-center gap-3 rounded-lg border-b px-3 py-4 text-black transition-colors hover:bg-accent"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
-                          <MessageSquare className="h-5 w-5" />
-                          <span>Messages</span>
+                          <MessageSquare className="h-6 w-6" />
+                          <span className="text-xl">Triage</span>
                         </Link>
                         <Link
                           href="/appointments"
-                          className="flex items-center gap-3 rounded-lg px-3 py-2 text-black transition-colors hover:bg-accent"
+                          className="flex items-center gap-3 rounded-lg px-3 py-4 text-black transition-colors hover:bg-accent"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
-                          <List className="h-5 w-5" />
-                          <span>Appointments</span>
-                        </Link>
-                        <Link
-                          href="/settings"
-                          className="flex items-center gap-3 rounded-lg px-3 py-2 text-black transition-colors hover:bg-accent"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          <Settings className="h-5 w-5" />
-                          <span>Settings</span>
+                          <List className="h-6 w-6" />
+                          <span className="text-xl">History</span>
                         </Link>
                       </div>
                     </nav>
 
-                    {/* Logout Button */}
-                    <div className="border-t p-4">
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-start gap-3 rounded-lg px-3 py-2 text-red-500 hover:bg-red-50 hover:text-red-600"
+                    
+                    {/* Lower Section */}
+                    <div>
+                      <Link
+                        href="/settings"
+                        className="flex items-center gap-3 rounded-lg px-6 py-2 text-black transition-colors hover:bg-accent"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        <LogOut className="h-5 w-5" />
-                        <span>Logout</span>
-                      </Button>
+                        <Settings className="h-6 w-6" />
+                        <span className="text-xl">Settings</span>
+                      </Link>
+                      <Link
+                        href="/profile"
+                        className="flex items-center gap-3 rounded-md border bg-white px-3 py-4 min-w-[220px] transition-colors hover:bg-neutral-100 mx-4 mt-4 mb-8"
+                      >
+                        <Avatar>
+                          <AvatarImage src={user.image} />
+                          <AvatarFallback>
+                            {user.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col">
+                          <span className="text-sm font-medium">{user.name}</span>
+                          <span className="text-xs text-muted-foreground">{user.role}</span>
+                        </div>
+                      </Link>
                     </div>
                   </div>
                 </SheetContent>
