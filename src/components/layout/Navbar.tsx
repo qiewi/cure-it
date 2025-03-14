@@ -28,14 +28,14 @@ export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien"
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
-    <div className="flex h-screen">
-      {/* Desktop Sidebar */}
-      <div className="hidden w-[72px] flex-col justify-between border-r bg-white md:flex">
+    <div className="flex h-screen overflow-hidden">
+      {/* Desktop Sidebar - Fixed */}
+      <div className="hidden fixed top-0 left-0 h-full w-[72px] flex-col justify-between border-r bg-white md:flex z-30">
         <div className="flex flex-col items-center gap-4">
           <div className="h-20 flex border-b w-full items-center justify-center">
             <Link href="/" className="">
               <div className="relative h-10 w-10">
-                <Image src={Logo} alt="CureIT Logo" fill className="object-contain" />
+                <Image src={Logo || "/placeholder.svg"} alt="CureIT Logo" fill className="object-contain" />
               </div>
             </Link>
           </div>
@@ -58,7 +58,7 @@ export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien"
             </Link>
           </Button>
         </div>
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-4 mb-4">
           <Button variant="ghost" size="icon" className="rounded-xl" asChild>
             <Link href="/settings">
               <Settings className="h-5 w-5" />
@@ -68,14 +68,15 @@ export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien"
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col">
-        {/* Top Navigation Bar */}
-        <header className="flex h-20 items-center justify-between border-b bg-white px-4">
+      {/* Main Content Area with Fixed Header */}
+      <div className="flex flex-1 flex-col md:ml-[72px]">
+        {/* Top Navigation Bar - Fixed */}
+        <header className="fixed top-0 right-0 left-0 md:left-[72px] flex h-20 items-center justify-between border-b bg-white px-4 z-20">
           {/* Left Section */}
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2">
               <div className="relative h-8 w-8 md:hidden">
-                <Image src={Logo} alt="CureIT Logo" fill className="object-contain" />
+                <Image src={Logo || "/placeholder.svg"} alt="CureIT Logo" fill className="object-contain" />
               </div>
               <span className="text-xl font-semibold">CureIt</span>
             </Link>
@@ -221,8 +222,8 @@ export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien"
           </div>
         </header>
 
-        {/* Main Content Area */}
-        <main className="flex-1">{children}</main>
+        {/* Main Content Area - Scrollable with padding for fixed header */}
+        <main className="flex-1 overflow-auto pt-20">{children}</main>
       </div>
     </div>
   )
