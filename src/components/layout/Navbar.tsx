@@ -30,13 +30,15 @@ export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien"
   return (
     <div className="flex h-screen">
       {/* Desktop Sidebar */}
-      <div className="hidden w-[72px] flex-col justify-between border-r bg-white py-4 md:flex">
+      <div className="hidden w-[72px] flex-col justify-between border-r bg-white md:flex">
         <div className="flex flex-col items-center gap-4">
-          <Link href="/" className="mb-8">
-            <div className="relative h-10 w-10">
-              <Image src={Logo} alt="CureIT Logo" fill className="object-contain" />
-            </div>
-          </Link>
+          <div className="h-20 flex border-b w-full items-center justify-center">
+            <Link href="/" className="">
+              <div className="relative h-10 w-10">
+                <Image src={Logo} alt="CureIT Logo" fill className="object-contain" />
+              </div>
+            </Link>
+          </div>
           <Button variant="ghost" size="icon" className="rounded-xl" asChild>
             <Link href="/">
               <Home className="h-5 w-5" />
@@ -68,7 +70,7 @@ export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien"
 
       <div className="flex flex-1 flex-col">
         {/* Top Navigation Bar */}
-        <header className="flex h-16 items-center justify-between border-b bg-white px-4">
+        <header className="flex h-20 items-center justify-between border-b bg-white px-4">
           {/* Left Section */}
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2">
