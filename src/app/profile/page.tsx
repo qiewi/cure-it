@@ -101,26 +101,25 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="mx-auto max-w-lg p-4">
-        <div className="flex items-center gap-6 mb-8">
-          <div className="relative h-24 w-24">
+    <div className="min-h-full bg-white p-4 md:p-4 md:mx-12 flex justify-center items-center">
+      <div className="w-full max-w-full bg-white rounded-3xl shadow-sm border p-6 md:p-10">
+        <div className="flex flex-col md:flex-row md:items-center gap-6 mb-8">
+          <div className="relative h-24 w-24 md:h-32 md:w-32 flex-shrink-0">
             <Image
               src={Doctor}
               alt="Profile"
-              width={96}
-              height={96}
+              fill
               className="rounded-full object-cover"
             />
           </div>
-          <div>
+          <div className="flex-1">
             {isEditing ? (
               <div className="space-y-2">
                 <div>
                   <Input
                     value={tempData.name}
                     onChange={(e) => handleChange("name", e.target.value)}
-                    className="text-2xl h-10 font-normal"
+                    className="text-2xl md:text-3xl h-10 font-normal"
                   />
                   {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                 </div>
@@ -128,24 +127,21 @@ export default function ProfilePage() {
               </div>
             ) : (
               <>
-                <h1 className="text-2xl font-normal">{profileData.name}</h1>
+                <h1 className="text-2xl md:text-3xl font-normal">{profileData.name}</h1>
                 <p className="text-gray-500">{profileData.email}</p>
               </>
             )}
           </div>
-        </div>
-
-        <div className="space-y-6">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="hidden md:flex md:flex-row md:gap-4 md:ml-auto">
             <div>
               <p className="text-gray-500 mb-1">Gol. Darah</p>
               {isEditing ? (
                 <div>
                   <Select value={tempData.bloodType} onValueChange={(value) => handleChange("bloodType", value)}>
-                    <SelectTrigger className="w-full font-normal">
+                    <SelectTrigger className="w-full font-normal bg-white">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-white">
                       <SelectItem value="O">O</SelectItem>
                       <SelectItem value="A">A</SelectItem>
                       <SelectItem value="B">B</SelectItem>
@@ -163,18 +159,18 @@ export default function ProfilePage() {
               {isEditing ? (
                 <div>
                   <Select value={tempData.gender} onValueChange={(value) => handleChange("gender", value)}>
-                    <SelectTrigger className="w-full font-normal">
+                    <SelectTrigger className="w-full font-normal bg-white">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Male">Male</SelectItem>
-                      <SelectItem value="Female">Female</SelectItem>
+                    <SelectContent className="bg-white">
+                      <SelectItem value="Male">M</SelectItem>
+                      <SelectItem value="Female">F</SelectItem>
                     </SelectContent>
                   </Select>
                   {errors.gender && <p className="text-red-500 text-xs mt-1">{errors.gender}</p>}
                 </div>
               ) : (
-                <p className="text-xl font-normal">{profileData.gender}</p>
+                <p className="text-xl font-normal">{profileData.gender === "Male" ? "M" : "F"}</p>
               )}
             </div>
             <div>
@@ -185,7 +181,7 @@ export default function ProfilePage() {
                     type="number"
                     value={tempData.age}
                     onChange={(e) => handleChange("age", Number.parseInt(e.target.value))}
-                    className="w-full font-normal"
+                    className="w-full font-normal bg-white"
                     min={1}
                     max={100}
                   />
@@ -196,7 +192,71 @@ export default function ProfilePage() {
               )}
             </div>
           </div>
+        </div>
 
+        {/* Mobile view for blood type, gender, age */}
+        <div className="grid grid-cols-3 gap-4 md:hidden mb-6 text-sm font-light">
+          <div>
+            <p className="text-gray-500 mb-1">Gol. Darah</p>
+            {isEditing ? (
+              <div>
+                <Select value={tempData.bloodType} onValueChange={(value) => handleChange("bloodType", value)}>
+                  <SelectTrigger className="w-full font-normal bg-white">
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white">
+                    <SelectItem value="O">O</SelectItem>
+                    <SelectItem value="A">A</SelectItem>
+                    <SelectItem value="B">B</SelectItem>
+                    <SelectItem value="AB">AB</SelectItem>
+                  </SelectContent>
+                </Select>
+                {errors.bloodType && <p className="text-red-500 text-xs mt-1">{errors.bloodType}</p>}
+              </div>
+            ) : (
+              <p className="text-xl">{profileData.bloodType}</p>
+            )}
+          </div>
+          <div>
+            <p className="text-gray-500 mb-1">Gender</p>
+            {isEditing ? (
+              <div>
+                <Select value={tempData.gender} onValueChange={(value) => handleChange("gender", value)}>
+                  <SelectTrigger className="w-full font-normal bg-white">
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white">
+                    <SelectItem value="Male">M</SelectItem>
+                    <SelectItem value="Female">F</SelectItem>
+                  </SelectContent>
+                </Select>
+                {errors.gender && <p className="text-red-500 text-xs mt-1">{errors.gender}</p>}
+              </div>
+            ) : (
+              <p className="text-xl">{profileData.gender === "Male" ? "M" : "F"}</p>
+            )}
+          </div>
+          <div>
+            <p className="text-gray-500 mb-1">Umur</p>
+            {isEditing ? (
+              <div>
+                <Input
+                  type="number"
+                  value={tempData.age}
+                  onChange={(e) => handleChange("age", Number.parseInt(e.target.value))}
+                  className="w-full font-normal bg-white"
+                  min={1}
+                  max={100}
+                />
+                {errors.age && <p className="text-red-500 text-xs mt-1">{errors.age}</p>}
+              </div>
+            ) : (
+              <p className="text-xl">{profileData.age}</p>
+            )}
+          </div>
+        </div>
+
+        <div className="space-y-6">
           <div className="border-t border-b py-6">
             <p className="text-gray-500 mb-2">Tempat, Tanggal Lahir</p>
             {isEditing ? (
@@ -206,7 +266,7 @@ export default function ProfilePage() {
                     <Input
                       value={tempData.birthPlace}
                       onChange={(e) => handleChange("birthPlace", e.target.value)}
-                      className="w-full font-normal"
+                      className="w-full font-normal bg-white"
                     />
                     {errors.birthPlace && <p className="text-red-500 text-xs mt-1">{errors.birthPlace}</p>}
                   </div>
@@ -214,20 +274,20 @@ export default function ProfilePage() {
                     <Input
                       value={tempData.birthDate}
                       onChange={(e) => handleChange("birthDate", e.target.value)}
-                      className="w-full font-normal"
+                      className="w-full font-normal bg-white"
                     />
                     {errors.birthDate && <p className="text-red-500 text-xs mt-1">{errors.birthDate}</p>}
                   </div>
                 </div>
               </div>
             ) : (
-              <p className="text-xl font-normal">
+              <p className="text-xl">
                 {profileData.birthPlace}, {profileData.birthDate}
               </p>
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
             <div>
               <p className="text-gray-500 mb-1">No. KTP</p>
               {isEditing ? (
@@ -235,13 +295,13 @@ export default function ProfilePage() {
                   <Input
                     value={tempData.idNumber}
                     onChange={(e) => handleChange("idNumber", e.target.value)}
-                    className="w-full font-normal"
+                    className="w-full font-normal bg-white"
                     maxLength={16}
                   />
                   {errors.idNumber && <p className="text-red-500 text-xs mt-1">{errors.idNumber}</p>}
                 </div>
               ) : (
-                <p className="text-xl font-normal">{profileData.idNumber}</p>
+                <p className="text-xl">{profileData.idNumber}</p>
               )}
             </div>
             <div>
@@ -251,12 +311,12 @@ export default function ProfilePage() {
                   <Input
                     value={tempData.phoneNumber}
                     onChange={(e) => handleChange("phoneNumber", e.target.value)}
-                    className="w-full font-normal"
+                    className="w-full font-normal bg-white"
                   />
                   {errors.phoneNumber && <p className="text-red-500 text-xs mt-1">{errors.phoneNumber}</p>}
                 </div>
               ) : (
-                <p className="text-xl font-normal">{profileData.phoneNumber}</p>
+                <p className="text-xl">{profileData.phoneNumber}</p>
               )}
             </div>
           </div>
@@ -268,27 +328,27 @@ export default function ProfilePage() {
                 <textarea
                   value={tempData.address}
                   onChange={(e) => handleChange("address", e.target.value)}
-                  className="w-full min-h-[100px] p-3 border rounded-md font-normal"
+                  className="w-full min-h-[100px] p-3 border rounded-md font-normal bg-white"
                 />
                 {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address}</p>}
               </div>
             ) : (
-              <p className="text-xl font-normal">{profileData.address}</p>
+              <p className="text-xl">{profileData.address}</p>
             )}
           </div>
 
-          <div className="pt-4">
+          <div className="pt-4 flex justify-end">
             {isEditing ? (
-              <div className="flex gap-4">
-                <Button onClick={handleCancel} variant="outline" className="flex-1">
+              <div className="flex gap-4 w-full md:w-auto">
+                <Button onClick={handleCancel} variant="outline" className="flex-1 md:flex-none md:w-32">
                   Cancel
                 </Button>
-                <Button onClick={handleSave} className="flex-1 bg-[#4AAFCD] hover:bg-[#3A9CBD]">
+                <Button onClick={handleSave} className="flex-1 md:flex-none md:w-32 bg-[#4AAFCD] hover:bg-[#3A9CBD]">
                   Save
                 </Button>
               </div>
             ) : (
-              <Button onClick={handleEdit} className="w-full bg-[#4AAFCD] hover:bg-[#3A9CBD]">
+              <Button onClick={handleEdit} className="w-full md:w-auto md:px-8 bg-[#4AAFCD] hover:bg-[#3A9CBD]">
                 EDIT PROFILE
               </Button>
             )}
