@@ -1,12 +1,15 @@
 "use client"
 
-import { useState } from "react"
+import type React from "react"
+
+import { useState, useRef } from "react"
 import Image from "next/image"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { toast } from "sonner"
+import { Camera } from "lucide-react"
 
 import Doctor from "@Images/doctor.svg"
 
@@ -51,6 +54,8 @@ export default function ProfilePage() {
     phoneNumber: "0812345678901",
     address: "Jl. Cikuda No.37, Cileles, Kec. Jatinangor, Kabupaten Sumedang, Jawa Barat 45363",
   })
+  const [profileImage, setProfileImage] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [tempData, setTempData] = useState<ProfileData>(profileData)
 
@@ -100,17 +105,55 @@ export default function ProfilePage() {
     }
   }
 
+  const handleProfileImageClick = () => {
+    if (isEditing) {
+      fileInputRef.current?.click()
+    }
+  }
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error("File too large", {
+          description: "Please select an image smaller than 5MB",
+        })
+        return
+      }
+
+      if (!file.type.startsWith("image/")) {
+        toast.error("Invalid file type", {
+          description: "Please select an image file",
+        })
+        return
+      }
+
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        setProfileImage(e.target?.result as string)
+      }
+      reader.readAsDataURL(file)
+      toast.success("Profile picture updated", {
+        description: "Your profile picture will be saved when you click Save",
+      })
+    }
+  }
+
   return (
     <div className="min-h-full bg-white p-4 md:p-4 md:mx-12 flex justify-center items-center">
       <div className="w-full max-w-full bg-white rounded-3xl shadow-sm border p-6 md:p-10">
         <div className="flex flex-col md:flex-row md:items-center gap-6 mb-8">
-          <div className="relative h-24 w-24 md:h-32 md:w-32 flex-shrink-0">
-            <Image
-              src={Doctor}
-              alt="Profile"
-              fill
-              className="rounded-full object-cover"
-            />
+          <div
+            className={`relative h-24 w-24 md:h-32 md:w-32 flex-shrink-0 ${isEditing ? "cursor-pointer group" : ""}`}
+            onClick={handleProfileImageClick}
+          >
+            <Image src={profileImage || Doctor} alt="Profile" fill className="rounded-full object-cover" />
+            {isEditing && (
+              <div className="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <Camera className="text-white h-8 w-8" />
+              </div>
+            )}
+            <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={handleFileChange} />
           </div>
           <div className="flex-1">
             {isEditing ? (
