@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-// import { FaUsers } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 interface DoctorCardProps {
@@ -91,7 +91,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
       {/* Bagian Bawah: Antrian & Durasi */}
       <div className="bg-primary-100 px-4 py-2 flex justify-between items-center text-primary-200 text-sm font-bold">
         <div className="flex items-center gap-1">
-          {/* <FaUsers className="w-5 h-5 text-primary-200" /> */}
+          <FaUsers className="w-5 h-5 text-primary-200" />
           {queue}
         </div>
         <p>Waktu: {duration} Menit</p>

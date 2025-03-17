@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { MapPin, User } from "lucide-react"
 
 interface HospitalCardProps {
   id: number;
@@ -58,7 +59,8 @@ const HospitalCard: React.FC<HospitalCardProps> = ({
               <h2 className="text-lg font-semibold text-primary">{name}</h2>
               <p className="text-sm text-muted-foreground">{location}</p>
             </div>
-            <div className="bg-secondary-50 text-secondary-200 px-1 py-1 rounded-xs text-xs font-medium border-secondary-200 border-1 max-w-[68px]">
+            <div className="inline-flex items-center bg-secondary-50 text-secondary-200 px-1 py-1 rounded-full text-xs font-medium border-secondary-100 border-1 w-fit">
+              <MapPin className="w-4 h-4 mr-1.5" />
               {distance} km
             </div>
           </div>
@@ -73,19 +75,23 @@ const HospitalCard: React.FC<HospitalCardProps> = ({
             className="w-full h-40 object-cover"
           />
           <div className="p-4">
+
             <div className="flex">
               <h3 className="text-lg font-semibold text-primary text-left">{name}</h3>
-              <span className="bg-secondary-50 text-secondary-200 px-3 py-1 rounded-xs text-xs font-medium border-secondary-200 border-1 ml-auto">
+              
+              <span className="inline-flex items-center bg-secondary-50 text-secondary-200 px-3 py-1 rounded-full w-fit text-xs font-medium border-secondary-100 border-1 ml-auto">
+                <MapPin className="w-4 h-4 mr-1.5" />
                 {distance} km
               </span>
             </div>
+
             <p className="text-muted-foreground text-sm text-left">{location}</p>
           </div>
         </div>
       )}
       <div className="bg-primary-100 px-4 py-2 flex justify-between items-center text-primary-200 text-sm font-medium">
-        <span className="text-primary-200">{queue} patients</span>
-        <span className="text-primary-200">
+        <span className="inline-flex items-center"><User className="w-4 h-4 mr-1" />{queue} slot</span>
+        <span>
           {getQueueStatus(queue)}
         </span>
       </div>
