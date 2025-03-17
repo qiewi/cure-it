@@ -4,13 +4,15 @@ import { useState } from "react"
 import Image from "next/image"
 import Doctor from "@Images/doctor.svg"
 import Hospital from "@Images/hospital.svg"
-import { ChevronLeft, ChevronRight, Download } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { QueueStatus } from "@/app/reservation/components/QueueStatus"
 import { ConsultationPhase } from "@/app/reservation/components/ConsultationPhase"
 import { PrescriptionPhase } from "@/app/reservation/components/PrescriptionPhase"
+import { DocumentsSection } from "@/app/reservation/components/DocumentsSection"
+import { PaymentSection } from "@/app/reservation/components/PaymentSection"
 
 const phases = ["registration", "consultation", "prescription"] as const
 type Phase = (typeof phases)[number]
@@ -46,6 +48,11 @@ export default function ReservationPage() {
     }
   }
 
+  const handleDownloadDocument = (id: number) => {
+    console.log(`Downloading document with id: ${id}`)
+    // Implement download functionality here
+  }
+
   const renderPhaseContent = () => {
     switch (currentPhase) {
       case "registration":
@@ -68,6 +75,18 @@ export default function ReservationPage() {
         )
     }
   }
+
+  // Sample documents data
+  const documents = [
+    { id: 1, name: "Nama File", size: "23 mb" },
+    { id: 2, name: "Nama File", size: "23 mb" },
+  ]
+
+  // Sample payment data with numeric values
+  const paymentItems = [
+    { label: "Dokter", amount: "Rp 20.000,00" },
+    { label: "Pajak (8%)", amount: "Rp 2.000,00" },
+  ]
 
   return (
     <div className="min-h-screen bg-white">
@@ -169,67 +188,18 @@ export default function ReservationPage() {
 
           {/* Confirmation Section */}
           <div className="space-y-3 sm:space-y-4">
-            <h2 className="text-base sm:text-lg font-semibold">Konfirmasi</h2>
-            <p className="text-xs sm:text-sm text-muted-foreground">
-              Berikut adalah dokumen dan informasi pembayaran dari layanan yang Anda pesan
-            </p>
-
-            {/* Documents */}
-            <Card className="p-3 sm:p-4">
-              <h3 className="mb-3 sm:mb-4 font-semibold text-sm sm:text-base">Dokumen</h3>
-              <div className="space-y-2">
-                {[1, 2].map((i) => (
-                  <div key={i} className="flex items-center justify-between rounded-lg border p-2 sm:p-3">
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="sm:w-5 sm:h-5"
-                      >
-                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                        <polyline points="14 2 14 8 20 8" />
-                      </svg>
-                      <div>
-                        <p className="font-medium text-sm sm:text-base">Nama File</p>
-                        <p className="text-xs sm:text-sm text-muted-foreground">23 mb</p>
-                      </div>
-                    </div>
-                    <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-8 sm:w-8">
-                      <Download className="h-4 w-4" />
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            </Card>
-
-            {/* Payment */}
-            <Card className="p-3 sm:p-4">
-              <h3 className="mb-3 sm:mb-4 font-semibold text-sm sm:text-base">Pembayaran</h3>
-              <p className="mb-3 sm:mb-4 text-xs sm:text-sm text-muted-foreground">
-                Berikut adalah keterangan pembayaran dari layanan yang Anda pesan
+            <div>
+              <h2 className="text-base sm:text-lg font-semibold mt-8">Konfirmasi</h2>
+              <p className="text-xs sm:text-sm text-muted-foreground">
+                Berikut adalah dokumen dan informasi pembayaran dari layanan yang Anda pesan
               </p>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm sm:text-base">
-                  <span>Dokter</span>
-                  <span>Rp 20.000,00</span>
-                </div>
-                <div className="flex justify-between text-sm sm:text-base">
-                  <span>Pajak (8%)</span>
-                  <span>Rp 2.000,00</span>
-                </div>
-                <div className="mt-3 sm:mt-4 flex justify-between border-t pt-3 sm:pt-4 font-semibold text-sm sm:text-base">
-                  <span>Total</span>
-                  <span>Rp 22.000,00</span>
-                </div>
-              </div>
-            </Card>
+            </div>
+            
+            {/* Documents Component */}
+            <DocumentsSection documents={documents} onDownload={handleDownloadDocument} />
+
+            {/* Payment Component */}
+            <PaymentSection items={paymentItems} />
           </div>
         </div>
       </div>
