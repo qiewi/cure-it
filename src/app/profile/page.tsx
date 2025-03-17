@@ -140,8 +140,8 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-full bg-white p-4 md:p-4 md:mx-12 flex justify-center items-center">
-      <div className="w-full max-w-full bg-white rounded-3xl shadow-sm border p-6 md:p-10">
+    <div className="min-h-full bg-neutral-100 md:p-4 flex justify-center items-center">
+      <div className="w-full max-w-full bg-white rounded-3xl shadow-sm border p-6 mx-12 md:p-10">
         <div className="flex flex-col md:flex-row md:items-center gap-6 mb-8">
           <div
             className={`relative h-24 w-24 md:h-32 md:w-32 flex-shrink-0 ${isEditing ? "cursor-pointer group" : ""}`}

@@ -17,7 +17,7 @@ interface DocumentsSectionProps {
 
 export function DocumentsSection({ documents, onDownload }: DocumentsSectionProps) {
   return (
-    <Card className="p-3 sm:p-4">
+    <Card className="p-3 sm:p-4 h-full">
       <h3 className="font-semibold text-sm sm:text-base">Dokumen</h3>
       <div className="space-y-2">
         {documents.map((doc) => (

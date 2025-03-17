@@ -39,7 +39,7 @@ export function PaymentSection({ items }: PaymentSectionProps) {
   const total = items.reduce((sum, item) => sum + parseCurrency(item.amount), 0)
 
   return (
-    <Card className="p-3 sm:p-4 flex flex-col gap-3 sm:gap-4">
+    <Card className="p-3 sm:p-4 flex flex-col gap-3 sm:gap-4 h-full">
         <div>
             <h3 className="font-semibold text-sm sm:text-base">Pembayaran</h3>
             <p className="mb-3 sm:mb-4 text-xs sm:text-sm text-muted-foreground">
