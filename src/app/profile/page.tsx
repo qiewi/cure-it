@@ -43,8 +43,8 @@ export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false)
   const [errors, setErrors] = useState<Partial<Record<keyof ProfileData, string>>>({})
   const [profileData, setProfileData] = useState<ProfileData>({
-    name: "Jason Jahja",
-    email: "jasonjahja@gmail.com",
+    name: "Mr. Kure It",
+    email: "business@cureit.com",
     bloodType: "AB",
     gender: "Male",
     age: 23,
