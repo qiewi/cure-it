@@ -7,7 +7,6 @@ import HospitalCard from "@/components/ui/HospitalCard"
 import HeroImage from "@Images/hero.svg"
 import { useMediaQuery } from "@/hooks/use-mobile"
 
-// Specialty icons - Updated to 10 specialties
 const specialties = [
   { id: 1, name: "Gigi dan Mulut", icon: "/images/specialities/Gigi.svg" },
   { id: 2, name: "Paru", icon: "/images/specialities/Paru.svg" },
