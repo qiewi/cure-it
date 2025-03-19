@@ -24,7 +24,7 @@ const initialNotifications = [
 
 export default function NotificationsPage() {
   return (
-    <div className="container mx-auto max-w-3xl p-4 mt-4 px-6">
+    <div className="container mx-auto max-w-3xl p-4 mt-4 px-4 md:px-6">
       <NotificationsContainer initialNotifications={initialNotifications} />
     </div>
   )

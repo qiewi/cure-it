@@ -33,9 +33,9 @@ export function NotificationsContainer({ initialNotifications }: NotificationsCo
   return (
     <>
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Notifikasi</h1>
+        <h1 className="text-lg md:text-2xl font-bold">Notifikasi</h1>
         <Select value={filter} onValueChange={setFilter}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[100px] md:w-[180px]">
             <SelectValue placeholder="Filter" />
           </SelectTrigger>
           <SelectContent className="bg-white">
