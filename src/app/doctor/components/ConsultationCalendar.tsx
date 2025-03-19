@@ -88,7 +88,7 @@ export function ConsultationCalendar({
   const visibleSchedules = showAllTimes ? schedules : schedules.slice(0, 3)
 
   return (
-    <Card className="w-full max-w-md mx-auto overflow-hidden rounded-xl border-primary-200 py-0">
+    <Card className="w-full overflow-hidden rounded-xl border-primary-200 py-0">
       {/* Header */}
       <CardHeader className="bg-primary-100 text-primary-200 py-4 px-6 flex rounded-t-xl justify-between items-center border-primary-200 border-b">
         <h2 className="text-lg md:text-2xl font-medium">Jadwal Konsultasi</h2>
@@ -117,7 +117,7 @@ export function ConsultationCalendar({
 
       <CardContent className="p-0">
         {/* Queue Info */}
-        <div className="px-6 pb-6">
+        <div className="px-6 py-6">
           <div className="flex justify-between items-center font-semibold">
             <div className="flex flex-col items-left text-left gap-4">
               <p className="text-xs md:text-lg">Terdekat - {format(new Date(), "HH:mm 'WIB'")}</p>
@@ -179,10 +179,12 @@ export function ConsultationCalendar({
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-sm md:text-lg font-medium px-1">Kalender</h3>
-            <Popover >
+            <Popover>
               <PopoverTrigger asChild>
                 <Button variant="ghost" className="flex items-center">
-                  <span className="text-sm md:text-lg text-right">{format(currentMonth, "MMMM yyyy", { locale: id })}</span>
+                  <span className="text-sm md:text-lg text-right">
+                    {format(currentMonth, "MMMM yyyy", { locale: id })}
+                  </span>
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </PopoverTrigger>
@@ -226,7 +228,7 @@ export function ConsultationCalendar({
                 <Button
                   key={index}
                   variant="ghost"
-                  className={`rounded-full md:h-12 md:w-12 p-0 md:mx-auto ${
+                  className={`rounded-full h-8 w-8 md:h-12 md:w-12 p-0 mx-auto ${
                     isSelected
                       ? "bg-secondary-100 text-secondary-300"
                       : isTodayDate
