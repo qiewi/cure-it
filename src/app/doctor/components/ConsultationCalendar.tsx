@@ -91,7 +91,7 @@ export function ConsultationCalendar({
     <Card className="w-full max-w-md mx-auto overflow-hidden rounded-xl border-primary-200 py-0">
       {/* Header */}
       <CardHeader className="bg-primary-100 text-primary-200 py-4 px-6 flex rounded-t-xl justify-between items-center border-primary-200 border-b">
-        <h2 className="text-2xl font-medium">Jadwal Konsultasi</h2>
+        <h2 className="text-lg md:text-2xl font-medium">Jadwal Konsultasi</h2>
         <div className="text-right">
           <Popover>
             <PopoverTrigger asChild>
@@ -99,7 +99,7 @@ export function ConsultationCalendar({
                 variant="ghost"
                 className="p-0 h-auto flex flex-col items-end text-primary-200 hover:bg-transparent"
               >
-                <span className="text-xl font-medium">{hospitalName}</span>
+                <span className="text-sm md:text-xl font-medium">{hospitalName}</span>
                 <div className="flex items-center">
                   <span className="text-sm">{hospitalLocation}</span>
                   <ChevronDown className="h-4 w-4 ml-1" />
@@ -120,14 +120,14 @@ export function ConsultationCalendar({
         <div className="px-6 pb-6">
           <div className="flex justify-between items-center font-semibold">
             <div className="flex flex-col items-left text-left gap-4">
-              <p className="text-lg">Terdekat - {format(new Date(), "HH:mm 'WIB'")}</p>
+              <p className="text-xs md:text-lg">Terdekat - {format(new Date(), "HH:mm 'WIB'")}</p>
               <div className="flex items-center">
                 <Users className="h-10 w-10 mr-2 text-neutral-800" />
-                <span className="text-5xl font-medium">{queue}</span>
+                <span className="text-3xl md:text-5xl font-medium">{queue}</span>
               </div>
             </div>
             <div className="flex flex-col text-right gap-4">
-              <p className="text-lg mb-2">Waktu: {timeInMinutes} Menit</p>
+              <p className="text-xs md:text-lg mb-2">Waktu: {timeInMinutes} Menit</p>
               <Button
                 className="bg-primary-200 hover:bg-primary-300 text-white px-8"
                 disabled={!selectedTime}
@@ -143,10 +143,10 @@ export function ConsultationCalendar({
 
         {/* Selected Date and Available Times */}
         <div className="p-6">
-          <h3 className="text-xl font-medium mb-1">
+          <h3 className="text-sm md:text-xl font-medium mb-1">
             {formattedDate} {isCurrentDay ? "(Hari Ini)" : ""}
           </h3>
-          <p className="text-sm text-neutral-600 mb-4">Berikut adalah jadwal dokter yang tersedia</p>
+          <p className="text-xs md:text-sm text-neutral-600 mb-4">Berikut adalah jadwal dokter yang tersedia</p>
 
           <div className="flex flex-wrap gap-3 mb-4">
             {visibleSchedules.map((time, index) => (
@@ -178,20 +178,20 @@ export function ConsultationCalendar({
         {/* Calendar */}
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-medium px-1">Kalender</h3>
+            <h3 className="text-sm md:text-lg font-medium px-1">Kalender</h3>
             <Popover >
               <PopoverTrigger asChild>
-                <Button variant="ghost" className="flex items-center gap-1">
-                  <span className="text-lg">{format(currentMonth, "MMMM yyyy", { locale: id })}</span>
+                <Button variant="ghost" className="flex items-center">
+                  <span className="text-sm md:text-lg text-right">{format(currentMonth, "MMMM yyyy", { locale: id })}</span>
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-[240px] p-2 bg-white">
-                <div className="flex justify-between">
+              <PopoverContent className="w-[180px] md:w-[240px] p-2 bg-white">
+                <div className="flex flex-row justify-between items-center">
                   <Button variant="ghost" size="sm" onClick={prevMonth}>
                     &lt;
                   </Button>
-                  <span>{format(currentMonth, "MMMM yyyy", { locale: id })}</span>
+                  <span className="text-xs">{format(currentMonth, "MMMM yyyy", { locale: id })}</span>
                   <Button variant="ghost" size="sm" onClick={nextMonth}>
                     &gt;
                   </Button>
@@ -226,7 +226,7 @@ export function ConsultationCalendar({
                 <Button
                   key={index}
                   variant="ghost"
-                  className={`rounded-full h-12 w-12 p-0 mx-auto ${
+                  className={`rounded-full md:h-12 md:w-12 p-0 md:mx-auto ${
                     isSelected
                       ? "bg-secondary-100 text-secondary-300"
                       : isTodayDate

@@ -33,7 +33,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ id, image, name, specialty, pri
   return (
     <div
       className="cursor-pointer border border-neutral-300 rounded-lg shadow-sm bg-neutral-50 overflow-hidden"
-      onClick={() => router.push(`/page`)}
+      onClick={() => router.push(`/doctor`)}
       style={isMobile ? { width: "100%", maxWidth: "280px" } : { width: "270px" }}
     >
       {/* 📱 Jika layar mobile, tampilkan layout mobile */}
