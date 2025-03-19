@@ -120,35 +120,10 @@ export default function DoctorProfilePage() {
               <Button className="w-full bg-primary-200 hover:bg-primary-300 py-6 text-lg">PESAN LAYANAN</Button>
             </div>
           </div>
-
-          {/* Similar Doctors - Only visible on mobile */}
-          <section className="mb-6 md:hidden">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">See Other Doctors</h2>
-                <Link href="/search/doctor" className="text-primary-200 text-sm flex items-center">
-                  See More <ChevronRight className="h-4 w-4" />
-                </Link>
-              </div>
-
-              <div className="space-y-4">
-                {similarDoctors.map((doctor) => (
-                  <DoctorCard
-                    key={doctor.id}
-                    id={doctor.id}
-                    image={doctor.image}
-                    name={doctor.name}
-                    specialty={doctor.specialty}
-                    price={doctor.price}
-                    queue={doctor.queue}
-                    duration={doctor.duration}
-                  />
-                ))}
-              </div>
-            </section>
         </div>
 
-        {/* Similar Doctors - Only visible on desktop */}
-        <section className="hidden md:block mt-8">
+        {/* Similar Doctors */}
+        <section className="mt-8">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold">See Other Doctors</h2>
             <Link href="/search/doctor" className="text-primary-200 text-sm flex items-center">
