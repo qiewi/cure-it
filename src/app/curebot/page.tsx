@@ -1,5 +1,3 @@
-"use client"
-
 import { ChatInterface } from "@/app/curebot/components/ChatInterface"
 
 // Sample doctor data
