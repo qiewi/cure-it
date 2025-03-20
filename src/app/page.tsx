@@ -1,12 +1,9 @@
-"use client"
+import { HeroSection } from "@/components/hero/HeroSection"
+import { BestDoctorsSection } from "@/components/hero/BestDoctorsSection"
+import { SpecializationsSection } from "@/components/hero/SpecializationsSection"
+import { PopularHospitalsSection } from "@/components/hero/PopularHospitalsSection"
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
-import DoctorCard from "@/components/ui/DoctorCard"
-import HospitalCard from "@/components/ui/HospitalCard"
-import HeroImage from "@Images/hero.svg"
-import { useMediaQuery } from "@/hooks/use-mobile"
-
+// Specialty data
 const specialties = [
   { id: 1, name: "Gigi dan Mulut", icon: "/images/specialities/Gigi.svg" },
   { id: 2, name: "Paru", icon: "/images/specialities/Paru.svg" },
@@ -71,99 +68,21 @@ const hospitals = [
 ]
 
 export default function Home() {
-  const isMobile = useMediaQuery("(max-width: 768px)")
-  const [mounted, setMounted] = useState(false)
-
-  // Ensure hydration
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) return null
-
-  // Filter specialties based on device type
-  const filteredSpecialties = isMobile ? specialties.filter((specialty) => !specialty.desktopOnly) : specialties
-
   return (
     <main className="flex flex-col min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative w-full h-[200px] md:h-[400px] bg-primary-100">
-        <Image src={HeroImage || "/placeholder.svg"} alt="Healthcare Hero" fill className="object-cover" priority />
-      </div>
+      <HeroSection imageUrl="/images/hero.svg" />
 
       {/* Content Container */}
       <div className="container mx-auto -mt-4 relative z-10 mb-12">
         {/* Best Doctors Section */}
-        <section className="mb-6 mt-12 md:mt-18 px-4 md:px-12">
-          <h2 className="text-xl font-bold mb-1 md:text-3xl">Dokter Terbaik</h2>
-          <p className="text-xs text-neutral-600 mb-3 md:text-lg">
-            Berikut adalah beberapa dokter yang kami rekomendasikan untuk Anda!
-          </p>
-
-          <div className="flex flex-col md:flex-row gap-3 md:gap-6 pb-3 -mx-4 px-4 md:mt-8">
-            {doctors.map((doctor) => (
-              <div key={doctor.id} className="snap-start flex-shrink-0">
-                <DoctorCard
-                  id={doctor.id}
-                  image={doctor.image || "/placeholder.svg?height=200&width=200"}
-                  name={doctor.name}
-                  specialty={doctor.specialty}
-                  price={doctor.price}
-                  queue={doctor.queue}
-                  duration={doctor.duration}
-                />
-              </div>
-            ))}
-          </div>
-        </section>
+        <BestDoctorsSection doctors={doctors} />
 
         {/* Specializations Section */}
-        <section className="mb-6 bg-primary-50 px-4 py-4 md:px-12 md:py-12">
-          <h2 className="text-xl font-bold mb-1 md:text-3xl">Pilih Spesialisasi</h2>
-          <p className="text-xs text-neutral-600 mb-3 md:text-lg">
-            Berikut adalah beberapa spesialisasi yang kami rekomendasikan untuk Anda!
-          </p>
-
-          {/* Updated grid to 4 columns for mobile and 5 columns for desktop */}
-          <div className="grid grid-cols-4 md:grid-cols-5 gap-3 md:gap-6 mt-4 md:mt-12">
-            {filteredSpecialties.map((specialty) => (
-              <div key={specialty.id} className="flex flex-col items-center cursor-pointer">
-                <div className="w-16 h-16 md:w-32 md:h-32 rounded-full bg-white flex items-center justify-center mb-2 shadow-sm hover:shadow-md transition-shadow">
-                  <Image
-                    src={specialty.icon || `/placeholder.svg?height=80&width=80`}
-                    alt={specialty.name}
-                    width={isMobile ? 64 : 128}
-                    height={isMobile ? 64 : 128}
-                    className="object-contain"
-                  />
-                </div>
-                <span className="text-[10px] md:text-sm text-center font-medium">{specialty.name}</span>
-              </div>
-            ))}
-          </div>
-        </section>
+        <SpecializationsSection specialties={specialties} />
 
         {/* Popular Hospitals Section */}
-        <section className="mb-6 px-4 md:px-12 mt-8 md:mt-12">
-          <h2 className="text-xl font-bold mb-1 md:text-3xl">Rumah Sakit Terpopuler</h2>
-          <p className="text-xs text-neutral-600 mb-3 md:text-lg">
-            Berikut adalah beberapa rumah sakit yang kami rekomendasikan untuk Anda!
-          </p>
-
-          <div className="flex flex-col md:flex-row gap-3 md:gap-6 md:mt-8">
-            {hospitals.map((hospital) => (
-              <HospitalCard
-                key={hospital.id}
-                id={hospital.id}
-                image={hospital.image || "/placeholder.svg?height=200&width=400"}
-                name={hospital.name}
-                location={hospital.location}
-                distance={hospital.distance}
-                queue={hospital.queue}
-              />
-            ))}
-          </div>
-        </section>
+        <PopularHospitalsSection hospitals={hospitals} />
       </div>
     </main>
   )
