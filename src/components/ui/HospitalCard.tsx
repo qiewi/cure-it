@@ -36,7 +36,7 @@ const HospitalCard: React.FC<HospitalCardProps> = ({ id, image, name, location, 
 
   return (
     <div
-      className="cursor-pointer border border-neutral-200 rounded-lg bg-card overflow-hidden"
+      className="cursor-pointer border border-neutral-200 rounded-lg bg-white overflow-hidden"
       onClick={() => router.push(`/hospital/${id}`)}
       style={isMobile ? { width: "100%" } : { width: "367px" }}
     >

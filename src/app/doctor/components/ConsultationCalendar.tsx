@@ -117,7 +117,7 @@ export function ConsultationCalendar({
 
       <CardContent className="p-0">
         {/* Queue Info */}
-        <div className="px-6 py-6">
+        <div className="px-6 py-6 pt-0">
           <div className="flex justify-between items-center font-semibold">
             <div className="flex flex-col items-left text-left gap-4">
               <p className="text-xs md:text-lg">Terdekat - {format(new Date(), "HH:mm 'WIB'")}</p>

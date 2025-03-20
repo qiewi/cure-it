@@ -66,8 +66,8 @@ export default function DoctorProfilePage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <main className="flex-1 container mx-auto px-4 py-6 md:px-8 lg:px-12">
-        <div className="md:grid md:grid-cols-12 md:gap-8">
+      <main className="flex-1 container mx-auto ">
+        <div className="md:grid md:grid-cols-12 md:gap-8 px-4 py-6 md:px-8 lg:px-12">
           {/* Left Column - Doctor Profile & Hospital */}
           <div className="md:col-span-5 lg:col-span-4">
             {/* Doctor Profile */}
@@ -123,7 +123,7 @@ export default function DoctorProfilePage() {
         </div>
 
         {/* Similar Doctors */}
-        <section className="mt-8">
+        <section className="mt-8 bg-primary-50 px-4 py-6 md:px-8 lg:px-12   ">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold">See Other Doctors</h2>
             <Link href="/search/doctor" className="text-primary-200 text-sm flex items-center">
