@@ -1,5 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
+import { Inter } from "next/font/google"
 import "./globals.css"
 import { Navbar } from "@/components/layout/Navbar"
 
@@ -16,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans">
-        {children}
+        <Navbar>{children}</Navbar>
       </body>
     </html>
   )

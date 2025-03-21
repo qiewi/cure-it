@@ -2,6 +2,7 @@ import { HeroSection } from "@/components/hero/HeroSection"
 import { BestDoctorsSection } from "@/components/hero/BestDoctorsSection"
 import { SpecializationsSection } from "@/components/hero/SpecializationsSection"
 import { PopularHospitalsSection } from "@/components/hero/PopularHospitalsSection"
+import { Navbar } from "@/components/layout/Navbar"
 
 // Specialty data
 const specialties = [
@@ -69,22 +70,25 @@ const hospitals = [
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-screen bg-white">
-      {/* Hero Section */}
-      <HeroSection imageUrl="/images/hero.svg" />
+    <Navbar>
+      <main className="flex flex-col min-h-screen bg-white">
+        {/* Hero Section */}
+        <HeroSection imageUrl="/images/hero.svg" />
 
-      {/* Content Container */}
-      <div className="container mx-auto -mt-4 relative z-10 mb-12">
-        {/* Best Doctors Section */}
-        <BestDoctorsSection doctors={doctors} />
+        {/* Content Container */}
+        <div className="container mx-auto -mt-4 relative z-10 mb-12">
+          {/* Best Doctors Section */}
+          <BestDoctorsSection doctors={doctors} />
 
-        {/* Specializations Section */}
-        <SpecializationsSection specialties={specialties} />
+          {/* Specializations Section */}
+          <SpecializationsSection specialties={specialties} />
 
-        {/* Popular Hospitals Section */}
-        <PopularHospitalsSection hospitals={hospitals} />
-      </div>
-    </main>
+          {/* Popular Hospitals Section */}
+          <PopularHospitalsSection hospitals={hospitals} />
+        </div>
+      </main>
+  </Navbar>
+    
   )
 }
 
