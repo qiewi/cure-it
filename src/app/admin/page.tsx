@@ -12,6 +12,7 @@ import { PaymentSection } from "@/app/reservation/components/PaymentSection"
 import { QueueStatus } from "@/app/reservation/components/QueueStatus"
 import { ConsultationPhase } from "@/app/reservation/components/ConsultationPhase"
 import { PrescriptionPhase } from "@/app/reservation/components/PrescriptionPhase"
+import { ConsultationHistory } from "@/app/admin/components/ConsultationHistory"
 
 // Define patient status type
 type PatientStatus = "Belum Konsultasi" | "Sudah Konsultasi" | "Batal Konsultasi"
@@ -35,9 +36,10 @@ interface Patient {
   status: string
   consultationStatus: PatientStatus
   notes: string
+  date: Date // Added date field for filtering
 }
 
-// Sample patient data
+// Sample patient data with dates
 const patients: Patient[] = [
   {
     id: 1,
@@ -54,6 +56,7 @@ const patients: Patient[] = [
     status: "Kunjungan Sehat",
     consultationStatus: "Belum Konsultasi",
     notes: "-",
+    date: new Date(2025, 1, 9), // February 9, 2025
   },
   {
     id: 2,
@@ -70,6 +73,7 @@ const patients: Patient[] = [
     status: "Sakit Ringan",
     consultationStatus: "Sudah Konsultasi",
     notes: "Pasien memiliki riwayat alergi",
+    date: new Date(2025, 1, 9), // February 9, 2025
   },
   {
     id: 3,
@@ -86,6 +90,7 @@ const patients: Patient[] = [
     status: "Kontrol Rutin",
     consultationStatus: "Sudah Konsultasi",
     notes: "Pasien diabetes",
+    date: new Date(2025, 1, 10), // February 10, 2025
   },
   {
     id: 4,
@@ -102,6 +107,7 @@ const patients: Patient[] = [
     status: "Pemeriksaan Umum",
     consultationStatus: "Belum Konsultasi",
     notes: "Pasien baru",
+    date: new Date(2025, 1, 15), // February 15, 2025
   },
   {
     id: 5,
@@ -118,6 +124,7 @@ const patients: Patient[] = [
     status: "Sakit Berat",
     consultationStatus: "Batal Konsultasi",
     notes: "Perlu rujukan spesialis",
+    date: new Date(2025, 1, 20), // February 20, 2025
   },
   {
     id: 6,
@@ -134,6 +141,7 @@ const patients: Patient[] = [
     status: "Kunjungan Sehat",
     consultationStatus: "Batal Konsultasi",
     notes: "-",
+    date: new Date(2025, 1, 20), // February 20, 2025
   },
 ]
 
@@ -161,9 +169,10 @@ export default function AdminPage() {
   const [currentPhase, setCurrentPhase] = useState<Phase>("registration")
   const [statusFilter, setStatusFilter] = useState<PatientStatus | null>(null)
   const [selectedCard, setSelectedCard] = useState<CardType>("all")
+  const [activeTab, setActiveTab] = useState<"today" | "history">("today")
   const currentPhaseIndex = phases.indexOf(currentPhase)
 
-  // Calculate patient counts
+  // Calculate patient counts for today
   const totalPatients = patients.length
   const examinedPatients = patients.filter((p) => p.consultationStatus === "Sudah Konsultasi").length
   const notExaminedPatients = patients.filter((p) => p.consultationStatus === "Belum Konsultasi").length
@@ -196,6 +205,10 @@ export default function AdminPage() {
     if (patientsWithStatus.length > 0) {
       setSelectedPatient(patientsWithStatus[0])
     }
+  }
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value as "today" | "history")
   }
 
   const renderPhaseContent = () => {
@@ -246,7 +259,7 @@ export default function AdminPage() {
 
           {/* Stats */}
           <div className="mb-6">
-            <Tabs defaultValue="today">
+            <Tabs defaultValue="today" onValueChange={handleTabChange}>
               <TabsList className="grid w-full grid-cols-2 gap-2 h-12 border-none shadow-none">
                 <TabsTrigger value="today" className="data-[state=active]:bg-[#4AAFCD] data-[state=active]:text-white">
                   Jumlah Pasien Hari Ini
@@ -258,6 +271,7 @@ export default function AdminPage() {
                   Riwayat Konsultasi
                 </TabsTrigger>
               </TabsList>
+
               <TabsContent value="today" className="mt-4">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                   <Card
@@ -319,61 +333,70 @@ export default function AdminPage() {
                     </p>
                   </Card>
                 </div>
+
+                {statusFilter && (
+                  <div className="mt-4 flex justify-end">
+                    <Button variant="outline" size="sm" onClick={() => handleCardClick(null)}>
+                      Tampilkan Semua
+                    </Button>
+                  </div>
+                )}
               </TabsContent>
+
               <TabsContent value="history">
-                <div className="rounded-lg border p-4">
-                  <p className="text-center text-muted-foreground">Riwayat konsultasi akan ditampilkan di sini</p>
-                </div>
+                <ConsultationHistory patients={patients} onSelectPatient={(patient) => setSelectedPatient(patient)} />
               </TabsContent>
             </Tabs>
           </div>
 
-          {/* Patient Table */}
-          <div className="mb-8 overflow-hidden rounded-lg">
-            <div className="grid grid-cols-5 bg-primary-100 text-primary-200 border-b border-primary-200 p-4 font-medium">
-              <div>Nama</div>
-              <div>Sesi Konsultasi</div>
-              <div>Gejala Sakit</div>
-              <div>Diagnosa</div>
-              <div>Status</div>
-            </div>
-            <div className="divide-y max-h-[384px] overflow-y-auto">
-              {filteredPatients.map((patient) => (
-                <div
-                  key={patient.id}
-                  className={`grid cursor-pointer grid-cols-5 p-4 hover:bg-gray-50 items-center ${
-                    selectedPatient?.id === patient.id
-                      ? "bg-secondary-50 text-secondary-200 border-y border-secondary-300 hover:bg-secondary-50"
-                      : ""
-                  }`}
-                  onClick={() => setSelectedPatient(patient)}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-full bg-gray-200"></div>
-                    <span className="truncate max-w-[180px]" title={patient.name}>
-                      {patient.name.length > 16 ? `${patient.name.substring(0, 16)}..` : patient.name}
-                    </span>
+          {/* Patient Table - Only show in "today" tab */}
+          {activeTab === "today" && (
+            <div className="mb-8 overflow-hidden rounded-lg">
+              <div className="grid grid-cols-5 bg-primary-100 text-primary-200 border-b border-primary-200 p-4 font-medium">
+                <div>Nama</div>
+                <div>Sesi Konsultasi</div>
+                <div>Gejala Sakit</div>
+                <div>Diagnosa</div>
+                <div>Status</div>
+              </div>
+              <div className="divide-y max-h-[384px] overflow-y-auto">
+                {filteredPatients.map((patient) => (
+                  <div
+                    key={patient.id}
+                    className={`grid cursor-pointer grid-cols-5 p-4 hover:bg-gray-50 items-center ${
+                      selectedPatient?.id === patient.id
+                        ? "bg-secondary-50 text-secondary-200 border-y border-secondary-300 hover:bg-secondary-50"
+                        : ""
+                    }`}
+                    onClick={() => setSelectedPatient(patient)}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="h-8 w-8 rounded-full bg-gray-200"></div>
+                      <span className="truncate max-w-[180px]" title={patient.name}>
+                        {patient.name.length > 16 ? `${patient.name.substring(0, 16)}..` : patient.name}
+                      </span>
+                    </div>
+                    <div>{patient.sessionTime}</div>
+                    <div>{patient.department}</div>
+                    <div>{patient.diagnosis}</div>
+                    <div>
+                      <span
+                        className={`inline-block rounded-full px-2 py-1 text-xs ${
+                          patient.consultationStatus === "Sudah Konsultasi"
+                            ? "bg-green-100 text-green-800"
+                            : patient.consultationStatus === "Belum Konsultasi"
+                              ? "bg-yellow-100 text-yellow-800"
+                              : "bg-red-100 text-red-800"
+                        }`}
+                      >
+                        {patient.consultationStatus}
+                      </span>
+                    </div>
                   </div>
-                  <div>{patient.sessionTime}</div>
-                  <div>{patient.department}</div>
-                  <div>{patient.diagnosis}</div>
-                  <div>
-                    <span
-                      className={`inline-block rounded-full px-2 py-1 text-xs ${
-                        patient.consultationStatus === "Sudah Konsultasi"
-                          ? "bg-green-100 text-green-800"
-                          : patient.consultationStatus === "Belum Konsultasi"
-                            ? "bg-yellow-100 text-yellow-800"
-                            : "bg-red-100 text-red-800"
-                      }`}
-                    >
-                      {patient.consultationStatus}
-                    </span>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Patient Details */}
           {selectedPatient && (
@@ -421,41 +444,41 @@ export default function AdminPage() {
 
                 {/* Phase Content */}
                 <Card className="p-6">
-                    <div>
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                                <User className="h-5 w-5" />
-                                <h3 className="font-semibold">{phaseInfo[currentPhase].title}</h3>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <span className="text-sm text-muted-foreground">
-                                    {currentPhaseIndex + 1}/{phases.length}
-                                </span>
-                                <div className="flex gap-1">
-                                    <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-8 w-8"
-                                    onClick={handlePrevious}
-                                    disabled={currentPhaseIndex === 0}
-                                    >
-                                    <ChevronLeft className="h-4 w-4" />
-                                    </Button>
-                                    <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-8 w-8"
-                                    onClick={handleNext}
-                                    disabled={currentPhaseIndex === phases.length - 1}
-                                    >
-                                    <ChevronRight className="h-4 w-4" />
-                                    </Button>
-                                </div>
-                            </div>
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <User className="h-5 w-5" />
+                        <h3 className="font-semibold">{phaseInfo[currentPhase].title}</h3>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-muted-foreground">
+                          {currentPhaseIndex + 1}/{phases.length}
+                        </span>
+                        <div className="flex gap-1">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8"
+                            onClick={handlePrevious}
+                            disabled={currentPhaseIndex === 0}
+                          >
+                            <ChevronLeft className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8"
+                            onClick={handleNext}
+                            disabled={currentPhaseIndex === phases.length - 1}
+                          >
+                            <ChevronRight className="h-4 w-4" />
+                          </Button>
                         </div>
-                        <p className="text-sm text-muted-foreground">{phaseInfo[currentPhase].description}</p>
+                      </div>
                     </div>
-                  <div className="overflow-hidden rounded-lg border p-4">{renderPhaseContent()}</div>
+                    <p className="text-sm text-muted-foreground">{phaseInfo[currentPhase].description}</p>
+                  </div>
+                  <div className="overflow-hidden rounded-lg border p-4 mt-4">{renderPhaseContent()}</div>
                 </Card>
               </div>
 
