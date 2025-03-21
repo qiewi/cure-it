@@ -153,8 +153,8 @@ export function ConsultationCalendar({
               <Button
                 key={index}
                 variant="outline"
-                className={`bg-primary-200 text-white hover:bg-primary-200 hover:text-white border-primary-100 ${
-                  selectedTime === time ? "border border-primary-300 text-white" : ""
+                className={`bg-primary-200 text-white hover:bg-primary-300 hover:text-white border-primary-100 ${
+                  selectedTime === time ? "bg-primary-300 hover:bg-primary-300 text-white" : ""
                 }`}
                 onClick={() => handleTimeClick(time)}
               >
@@ -163,8 +163,8 @@ export function ConsultationCalendar({
             ))}
             {schedules.length > 3 && (
               <Button
-                variant="outline"
-                className="bg-primary-300 text-white hover:bg-primary-400 hover:text-white border-primary-300"
+                variant="default"
+                className="bg-primary-200 text-white hover:bg-primary-200 hover:text-white border-primary-300"
                 onClick={() => setShowAllTimes(!showAllTimes)}
               >
                 {showAllTimes ? "Tampilkan Sedikit" : "Lihat lainnya"}
