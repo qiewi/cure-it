@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { SearchBar } from "./SearchBar"
+import { SearchBar } from "@/components/ui/SearchBar"
 import { FilterControls } from "./FilterControls"
 import { DoctorGrid } from "./DoctorGrid"
 import { FilterDialog } from "./FilterDialog"
