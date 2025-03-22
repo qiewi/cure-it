@@ -72,9 +72,10 @@ const hospitals = [
 ]
 
 export default async function Home() {
+  const session = await auth()
   return (
     <body>
-      <Navbar>
+      <Navbar session={session}>
           <main className="flex flex-col min-h-screen bg-white">
             {/* Hero Section */}
             <HeroSection imageUrl="/images/hero.svg" />
