@@ -52,7 +52,7 @@ export function LoginForm() {
               <FormItem>
                 <FormControl>
                   <div className="relative">
-                    <div className="absolute left-3 top-3 text-gray-400">
+                    <div className="absolute left-3 top-2 text-gray-400">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -83,7 +83,7 @@ export function LoginForm() {
               <FormItem>
                 <FormControl>
                   <div className="relative">
-                    <div className="absolute left-3 top-3 text-gray-400">
+                    <div className="absolute left-3 top-2 text-gray-400">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -106,7 +106,7 @@ export function LoginForm() {
                       {...field}
                     />
                     <div
-                      className="absolute right-3 top-3 cursor-pointer text-gray-400"
+                      className="absolute right-3 top-2 cursor-pointer text-gray-400"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}

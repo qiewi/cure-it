@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { MoreVertical } from "lucide-react"
+import { MoreHorizontal, MoreVertical } from "lucide-react"
 import Doctor from "@Images/doctor.svg"
 
 import { Button } from "@/components/ui/button"
@@ -50,19 +50,19 @@ export function NotificationItem({ idReservasi, image, status, time, onStatusCha
           <div className="h-2 w-2 rounded-full bg-primary-200" />
         </div>
       )}
-      <div className={cn("relative ml-4", currentStatus === "unopened" ? "ml-6" : "")}>
-        <div className="relative h-12 w-12">
+      <div className={cn("relative ml-4", currentStatus === "unopened" ? "ml-4" : "")}>
+        <div className="relative h-8 w-8 md:h-12 md:w-12">
           <Image src={Doctor} alt="Profile" fill className="rounded-full object-cover" />
         </div>
       </div>
       <div className="flex-1 space-y-1">
-        <h3 className="font-semibold text-sm">Penjadwalan Anda Disetujui</h3>
-        <p className="text-muted-foreground text-xs">Silakan tekan notifikasi ini untuk membuka reservasi Anda</p>
+        <h3 className="font-semibold text-[10px] md:text-sm">Penjadwalan Anda Disetujui</h3>
+        <p className="text-muted-foreground text-[8px] md:text-xs">Silakan tekan notifikasi ini untuk membuka reservasi Anda</p>
       </div>
-      <div className="flex items-center gap-2">
-        <span className="text-sm text-muted-foreground whitespace-nowrap">{formatTime(time)}</span>
+      <div className="flex flex-col items-center">
+        <span className="text-xs md:text-sm text-muted-foreground whitespace-nowrap">{formatTime(time)}</span>
         <Button variant="ghost" size="icon" className="h-8 w-8" onClick={(e) => e.stopPropagation()}>
-          <MoreVertical className="h-4 w-4" />
+          <MoreHorizontal className="h-4 w-4" />
           <span className="sr-only">More</span>
         </Button>
       </div>
