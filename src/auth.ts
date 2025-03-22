@@ -1,41 +1,58 @@
-import NextAuth from "next-auth"
-import Google from "next-auth/providers/google"
-import {Provider} from "next-auth/providers";
-import Credentials from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import { prisma } from "@/prisma"
+import NextAuth, {type DefaultSession} from "next-auth";
+import type {DefaultJWT} from "next-auth/jwt";
+import {type Adapter} from "next-auth/adapters";
+import {PrismaAdapter} from "@auth/prisma-adapter";
+import {prisma} from "@/prisma";
+import AuthConfig from "@/auth.config";
 
-const providers: Provider[] = [
-    Credentials({
-        credentials: { password: { label: "Password", type: "password" } },
-        authorize(c) {
-            if (c.password !== "password") return null
-            return {
-                id: "test",
-                name: "Test User",
-                email: "test@example.com",
+
+declare module "next-auth" {
+    interface Session extends DefaultSession {
+        user: {
+            id: string | undefined;
+            image: string | null | undefined;
+            role: "ADMIN" | "USER";
+        } & DefaultSession["user"];
+    }
+
+    interface User {
+        role: "ADMIN" | "USER";
+    }
+}
+
+declare module "next-auth/jwt" {
+    interface JWT extends DefaultJWT {
+        id: string | undefined;
+        picture: string | null | undefined;
+        role: "ADMIN" | "USER";
+    }
+}
+
+export const { auth, handlers, signIn, signOut } = NextAuth({
+    callbacks: {
+        jwt: async ({ token, user }) => {
+            if (user) {
+                token.id = user.id;
+                token.email = user.email;
+                token.role = user.role;
+                token.picture = user.image;
             }
+            return token;
         },
-    }),
-    Google
-]
 
-export const providerMap = providers
-    .map((provider) => {
-        if (typeof provider === "function") {
-            const providerData = provider()
-            return { id: providerData.id, name: providerData.name }
-        } else {
-            return { id: provider.id, name: provider.name }
-        }
-    })
-    .filter((provider) => provider.id !== "credentials")
-
-export const { handlers, signIn, signOut, auth } = NextAuth({
-    providers,
-    adapter: PrismaAdapter(prisma),
-    session: { strategy: "jwt" },
-    pages: {
-        signIn: "/auth/login",
+        session: async ({ session, token }) => {
+            session.user.id = token.id as string;
+            session.user.image = token.picture;
+            session.user.role = token.role;
+            return session
+        },
     },
-})
+    session: {
+        strategy: "jwt",
+    },
+    adapter: PrismaAdapter(prisma) as Adapter,
+    pages: {
+        error: "/auth-error",
+    },
+    ...AuthConfig
+});

@@ -12,6 +12,7 @@ import { toast } from "sonner"
 import { Camera } from "lucide-react"
 
 import Doctor from "@Images/doctor.svg"
+import {mutateUserProfile} from "@/action/Profile";
 
 // Define the validation schema with Zod
 const profileSchema = z.object({
@@ -65,10 +66,14 @@ export default function ProfilePage() {
     setErrors({})
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     try {
       // Validate the form data
       profileSchema.parse(tempData)
+      const res = await mutateUserProfile(tempData, fileInputRef.current?.files?.[0] as File)
+      if (!res) {
+        throw new Error("Failed to update profile")
+      }
       setProfileData(tempData)
       setIsEditing(false)
       setErrors({})

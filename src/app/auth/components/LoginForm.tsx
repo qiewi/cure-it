@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
+import { signIn } from "next-auth/react"
 
 const formSchema = z
   .object({
@@ -139,7 +140,9 @@ export function LoginForm() {
         </p>
       </div>
 
-      <Button className="w-full border-2 bg-transparent text-black py-6 hover:bg-gray-100  rounded-4xl" style={{ borderColor: 'rgba(66, 133, 244, 0.5)' }}>
+      <Button className="w-full border-2 bg-transparent text-black py-6 hover:bg-gray-100  rounded-4xl" type="submit" style={{ borderColor: 'rgba(66, 133, 244, 0.5)' }} onClick={() => signIn('google',{
+          redirectTo: "/",
+      })}>
         <div className="flex flex-row items-center">
           <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
         <path
