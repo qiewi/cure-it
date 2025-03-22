@@ -2,18 +2,15 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import Logo from "@Images/logo.svg"
-import { Bell, ChevronDown, Home, Menu, MessageSquare, Settings, List } from "lucide-react"
+import { Bell, Home, Menu, MessageSquare, Settings, List, LogIn } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-
-const locations = ["Jakarta Pusat", "Jakarta Barat", "Jakarta Timur", "Jakarta Selatan", "Jakarta Utara"]
 
 interface NavbarProps {
   children: React.ReactNode
@@ -21,11 +18,32 @@ interface NavbarProps {
     name: string
     role: string
     image?: string
-  }
+  } | null
 }
 
 export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien" } }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
+
+  // Check authentication status on component mount
+  useEffect(() => {
+    // This is a placeholder for actual authentication logic
+    // In a real app, you would check a token in localStorage or cookies
+    const token = localStorage.getItem("auth_token")
+    setIsLoggedIn(!!token)
+  }, [])
+
+  // Mock login function (for development only)
+  const handleLogin = () => {
+    localStorage.setItem("auth_token", "mock_token")
+    setIsLoggedIn(true)
+  }
+
+  // Mock logout function
+  const handleLogout = () => {
+    localStorage.removeItem("auth_token")
+    setIsLoggedIn(false)
+  }
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -86,30 +104,43 @@ export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien"
           <div className="flex items-center gap-4">
             {/* Desktop Navigation */}
             <div className="hidden items-center gap-4 md:flex">
+                <Button variant="ghost" size="icon" className="rounded-full" asChild>
+                  <Link href="/notifications">
+                    <Bell className="h-5 w-5" />
+                    <span className="sr-only">Notifications</span>
+                  </Link>
+                </Button>
 
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <Bell className="h-5 w-5" />
-                <span className="sr-only">Notifications</span>
-              </Button>
-
-              <Link
-                href="/profile"
-                className="flex items-center gap-3 rounded-full border bg-white px-3 py-1 min-w-[220px] transition-colors hover:bg-neutral-100"
-              >
-                <Avatar>
-                  <AvatarImage src={user.image} />
-                  <AvatarFallback>
-                    {user.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium">{user.name}</span>
-                  <span className="text-xs text-muted-foreground">{user.role}</span>
-                </div>
-              </Link>
+              {isLoggedIn ? (
+                <Link
+                  href="/profile"
+                  className="flex items-center gap-3 rounded-full border bg-white px-3 py-1 min-w-[220px] transition-colors hover:bg-neutral-100"
+                >
+                  <Avatar>
+                    <AvatarImage src={user?.image} />
+                    <AvatarFallback>
+                      {user?.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium">{user?.name}</span>
+                    <span className="text-xs text-muted-foreground">{user?.role}</span>
+                  </div>
+                </Link>
+              ) : (
+                <Link
+                  href="/auth/login"
+                  className="flex items-center gap-3 rounded-full border bg-white px-3 py-1 min-w-[120px] transition-colors hover:bg-neutral-100"
+                >
+                  <div className="flex items-center gap-2 py-2">
+                    <LogIn className="h-5 w-5" />
+                    <span className="text-sm font-medium">Login</span>
+                  </div>
+                </Link>
+              )}
             </div>
 
             {/* Mobile Menu Button and Dropdown */}
@@ -170,24 +201,39 @@ export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien"
                         <Settings className="h-6 w-6" />
                         <span className="text-xl">Settings</span>
                       </Link>
-                      <Link
-                        href="/profile"
-                        className="flex items-center gap-3 rounded-md border bg-white px-3 py-4 min-w-[220px] transition-colors hover:bg-neutral-100 mx-4 mt-4 mb-8"
-                      >
-                        <Avatar>
-                          <AvatarImage src={user.image} />
-                          <AvatarFallback>
-                            {user.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="flex flex-col">
-                          <span className="text-sm font-medium">{user.name}</span>
-                          <span className="text-xs text-muted-foreground">{user.role}</span>
-                        </div>
-                      </Link>
+
+                      {isLoggedIn ? (
+                        <Link
+                          href="/profile"
+                          className="flex items-center gap-3 rounded-md border bg-white px-3 py-4 min-w-[220px] transition-colors hover:bg-neutral-100 mx-4 mt-4 mb-8"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <Avatar>
+                            <AvatarImage src={user?.image} />
+                            <AvatarFallback>
+                              {user?.name
+                                .split(" ")
+                                .map((n) => n[0])
+                                .join("")}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex flex-col">
+                            <span className="text-sm font-medium">{user?.name}</span>
+                            <span className="text-xs text-muted-foreground">{user?.role}</span>
+                          </div>
+                        </Link>
+                      ) : (
+                        <Link
+                          href="/auth/login"
+                          className="flex items-center gap-3 rounded-md border bg-white px-3 py-4 transition-colors hover:bg-neutral-100 mx-4 mt-4 mb-8"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <div className="flex items-center gap-2">
+                            <LogIn className="h-5 w-5" />
+                            <span className="text-sm font-medium">Login</span>
+                          </div>
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </SheetContent>

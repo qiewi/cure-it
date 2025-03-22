@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { SearchBar } from "@/components/ui/SearchBar"
 import { FilterControls } from "./FilterControls"
 import { DoctorGrid } from "./DoctorGrid"
@@ -18,10 +18,11 @@ interface Doctor {
 
 interface DoctorSearchContentProps {
   doctors: Doctor[]
+  initialSearchQuery?: string
 }
 
-export function DoctorSearchContent({ doctors }: DoctorSearchContentProps) {
-  const [searchQuery, setSearchQuery] = useState("")
+export function DoctorSearchContent({ doctors, initialSearchQuery = "" }: DoctorSearchContentProps) {
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery)
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [distance, setDistance] = useState(5)
   const [time, setTime] = useState(20)
@@ -30,6 +31,13 @@ export function DoctorSearchContent({ doctors }: DoctorSearchContentProps) {
   const [gender, setGender] = useState<"Semua" | "Laki-Laki" | "Perempuan">("Semua")
   const [sortBy, setSortBy] = useState("Waktu")
   const [sortOrder, setSortOrder] = useState("Menurun")
+
+  // Update search query when initialSearchQuery changes
+  useEffect(() => {
+    if (initialSearchQuery) {
+      setSearchQuery(initialSearchQuery)
+    }
+  }, [initialSearchQuery])
 
   // Filter doctors based on search query
   const filteredDoctors = doctors.filter(
@@ -53,7 +61,11 @@ export function DoctorSearchContent({ doctors }: DoctorSearchContentProps) {
 
   return (
     <>
-      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <SearchBar
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        placeholder="Cari Dokter atau Spesialisasi"
+      />
 
       <FilterControls
         sortBy={sortBy}

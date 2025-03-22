@@ -33,10 +33,11 @@ export function SpecializationsSection({ specialties, hospitalId }: Specializati
   const filteredSpecialties = isMobile ? specialties.filter((specialty) => !specialty.desktopOnly) : specialties
 
   const handleSpecialtyClick = (specialty: Specialty) => {
+    // Redirect to doctor search page with specialty name as search query
     if (hospitalId) {
-      router.push(`/search/specialization?specialty=${encodeURIComponent(specialty.name)}&hospitalId=${hospitalId}`)
+      router.push(`/search/doctor?search=${encodeURIComponent(specialty.name)}&hospitalId=${hospitalId}`)
     } else {
-      router.push(`/search/specialization?specialty=${encodeURIComponent(specialty.name)}`)
+      router.push(`/search/doctor?search=${encodeURIComponent(specialty.name)}`)
     }
   }
 

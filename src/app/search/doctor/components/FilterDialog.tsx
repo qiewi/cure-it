@@ -40,9 +40,6 @@ export function FilterDialog({
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold flex justify-between items-center">
             Filter
-            <Button variant="ghost" size="sm" onClick={() => onOpenChange(false)} className="h-8 w-8 p-0">
-              <X className="h-6 w-6" />
-            </Button>
           </DialogTitle>
         </DialogHeader>
 

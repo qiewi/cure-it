@@ -1,5 +1,6 @@
 "use client"
 
+import { useSearchParams } from "next/navigation"
 import { DoctorSearchContent } from "@/app/search/doctor/components/DoctorSearchContent"
 
 // Sample doctor data
@@ -61,6 +62,10 @@ const doctors = [
 ]
 
 export default function DoctorSearchPage() {
+  // Get search query from URL parameters
+  const searchParams = useSearchParams()
+  const initialSearchQuery = searchParams.get("search") || ""
+
   return (
     <div className="container mx-auto px-4 md:px-12 py-6 w-full">
       <h1 className="text-2xl font-bold mb-1">Pilih Dokter</h1>
@@ -68,7 +73,7 @@ export default function DoctorSearchPage() {
         Pilih dokter dengan spesialisasi yang sesuai dengan kebutuhan Anda
       </p>
 
-      <DoctorSearchContent doctors={doctors} />
+      <DoctorSearchContent doctors={doctors} initialSearchQuery={initialSearchQuery} />
     </div>
   )
 }

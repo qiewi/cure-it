@@ -50,7 +50,7 @@ export function HospitalSearchContent({ hospitals }: HospitalSearchContentProps)
 
   return (
     <>
-      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} placeholder="Cari Rumah Sakit"/>
 
       <FilterControls
         sortBy={sortBy}

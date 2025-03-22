@@ -42,22 +42,19 @@ const profileSchema = z.object({
     .min(10, "Phone number must be at least 10 digits")
     .regex(/^\d+$/, "Phone number must contain only digits"),
   address: z.string().min(10, "Address must be at least 10 characters"),
+  profileImage: z.string().optional(),
 })
 
 export type ProfileData = z.infer<typeof profileSchema>
 
 interface ProfileEditorProps {
-  initialProfileData: Omit<ProfileData, "birthDate"> & { birthDate: Date }
+  initialProfileData: ProfileData
 }
 
 export function ProfileEditor({ initialProfileData }: ProfileEditorProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [errors, setErrors] = useState<Partial<Record<keyof ProfileData, string>>>({})
-  const [profileData, setProfileData] = useState<ProfileData>({
-    ...initialProfileData,
-    birthDate: new Date(initialProfileData.birthDate),
-  })
-  const [profileImage, setProfileImage] = useState<string | null>(null)
+  const [profileData, setProfileData] = useState<ProfileData>(initialProfileData)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [tempData, setTempData] = useState<ProfileData>(profileData)
@@ -140,12 +137,13 @@ export function ProfileEditor({ initialProfileData }: ProfileEditorProps) {
 
       const reader = new FileReader()
       reader.onload = (e) => {
-        setProfileImage(e.target?.result as string)
+        const imageDataUrl = e.target?.result as string
+        setTempData((prev) => ({ ...prev, profileImage: imageDataUrl }))
+        toast.success("Profile picture updated", {
+          description: "Your profile picture will be saved when you click Save",
+        })
       }
       reader.readAsDataURL(file)
-      toast.success("Profile picture updated", {
-        description: "Your profile picture will be saved when you click Save",
-      })
     }
   }
 
@@ -156,7 +154,7 @@ export function ProfileEditor({ initialProfileData }: ProfileEditorProps) {
           className={`relative h-24 w-24 md:h-32 md:w-32 flex-shrink-0 ${isEditing ? "cursor-pointer group" : ""}`}
           onClick={handleProfileImageClick}
         >
-          <Image src={profileImage || Doctor} alt="Profile" fill className="rounded-full object-cover" />
+          <Image src={tempData.profileImage || Doctor} alt="Profile" fill className="rounded-full object-cover" />
           {isEditing && (
             <div className="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
               <Camera className="text-white h-8 w-8" />

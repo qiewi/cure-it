@@ -15,11 +15,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="font-sans">
-        <Navbar>{children}</Navbar>
-      </body>
-    </html>
+    <body className="font-sans">
+      <Navbar>{children}</Navbar>
+    </body>
   )
 }
 

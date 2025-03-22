@@ -1,4 +1,5 @@
 import { ProfileEditor } from "@/app/profile/components/ProfileEditor"
+import type { ProfileData } from "@/app/profile/components/ProfileEditor"
 
 // Initial profile data that would typically come from a database
 import {GetUserProfile} from "@/action/Profile";
