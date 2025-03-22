@@ -53,7 +53,7 @@ export function DoctorSearchContent({ doctors }: DoctorSearchContentProps) {
 
   return (
     <>
-      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} placeholder="Cari Dokter atau Spesialisasi" />
 
       <FilterControls
         sortBy={sortBy}
