@@ -8,18 +8,21 @@ interface ConsultationPhaseProps {
 
 export function ConsultationPhase({ estimatedTime, schedule }: ConsultationPhaseProps) {
   return (
-    <div className="space-y-4">
-      {/* Responsive image container with aspect ratio */}
-      <div className="relative w-full aspect-square max-h-[360px]">
-        <Image
-          src={Consultation || "/placeholder.svg"}
-          alt="Consultation Illustration"
-          fill
-          className="object-contain"
-        />
+    <div className="flex flex-col h-full">
+      <div className="flex-1 flex flex-col justify-center items-center">
+        {/* Responsive image container with fixed height */}
+        <div className="relative w-full h-[200px]">
+          <Image
+            src={Consultation || "/placeholder.svg"}
+            alt="Consultation Illustration"
+            fill
+            className="object-contain"
+          />
+        </div>
       </div>
-      <p className="text-base sm:text-lg text-center">Segera masuk ke ruang konsultasi</p>
-      <div className="rounded-lg bg-[#F3EDFF] p-3">
+
+      {/* Schedule Info - Fixed at bottom */}
+      <div className="rounded-lg bg-[#F3EDFF] p-3 mt-4">
         <p className="text-xs sm:text-sm text-[#8B5CF6]">
           Estimasi Waktu: {estimatedTime > 12 ? ">" : ""} {estimatedTime} menit
         </p>
