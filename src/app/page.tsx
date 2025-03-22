@@ -70,25 +70,26 @@ const hospitals = [
 
 export default function Home() {
   return (
-    <Navbar>
-      <main className="flex flex-col min-h-screen bg-white">
-        {/* Hero Section */}
-        <HeroSection imageUrl="/images/hero.svg" />
+    <body>
+      <Navbar>
+          <main className="flex flex-col min-h-screen bg-white">
+            {/* Hero Section */}
+            <HeroSection imageUrl="/images/hero.svg" />
 
-        {/* Content Container */}
-        <div className="container mx-auto -mt-4 relative z-10 mb-12">
-          {/* Best Doctors Section */}
-          <BestDoctorsSection doctors={doctors} />
+            {/* Content Container */}
+            <div className="container mx-auto -mt-4 relative z-10 mb-12">
+              {/* Best Doctors Section */}
+              <BestDoctorsSection doctors={doctors} />
 
-          {/* Specializations Section */}
-          <SpecializationsSection specialties={specialties} />
+              {/* Specializations Section */}
+              <SpecializationsSection specialties={specialties} />
 
-          {/* Popular Hospitals Section */}
-          <PopularHospitalsSection hospitals={hospitals} />
-        </div>
-      </main>
-  </Navbar>
-    
+              {/* Popular Hospitals Section */}
+              <PopularHospitalsSection hospitals={hospitals} />
+            </div>
+          </main>
+      </Navbar>
+    </body>
   )
 }
 
