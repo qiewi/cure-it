@@ -28,7 +28,7 @@ export default async function ProfilePage() {
   };
 
   return (
-    <div className="min-h-full bg-neutral-100 md:p-4 flex justify-center items-center">
+    <div className="min-h-full bg-neutral-100 py-4 md:p-4 flex justify-center items-center">
       <ProfileEditor initialProfileData={formattedProfileData} />
     </div>
   );

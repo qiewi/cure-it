@@ -20,7 +20,7 @@ interface Patient {
   gender: string
   insurance: string
   status: string
-  consultationStatus: "Belum Konsultasi" | "Sudah Konsultasi" | "Batal Konsultasi"
+  consultationStatus: "Selesai" | "Belum Konsultasi" | "Sudah Konsultasi" | "Batal Konsultasi"
   notes: string
   date: Date // Added date field for filtering
 }
@@ -69,11 +69,8 @@ export function ConsultationHistory({ patients, onSelectPatient }: ConsultationH
     setFilteredPatients(filtered)
   }
 
-  // Calculate patient statistics for the selected date
+  // Calculate total patients for the selected date
   const totalPatients = filteredPatients.length
-  const inQueuePatients = filteredPatients.filter((p) => p.consultationStatus === "Sudah Konsultasi").length
-  const notInQueuePatients = filteredPatients.filter((p) => p.consultationStatus === "Belum Konsultasi").length
-  const cancelledPatients = filteredPatients.filter((p) => p.consultationStatus === "Batal Konsultasi").length
 
   return (
     <div className="space-y-6">
@@ -131,39 +128,27 @@ export function ConsultationHistory({ patients, onSelectPatient }: ConsultationH
         })}
       </div>
 
-      {/* Statistics Cards */}
+      {/* Statistics Card - Only show "Total Patients" */}
       {selectedDate && (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           <Card className="p-4 text-center bg-[#F3EDFF]">
             <h2 className="text-4xl font-bold text-[#8B5CF6]">{totalPatients}</h2>
             <p className="text-sm text-[#8B5CF6]">Total Pasien</p>
           </Card>
-          <Card className="p-4 text-center">
-            <h2 className="text-4xl font-bold">{inQueuePatients}</h2>
-            <p className="text-sm text-muted-foreground">Masuk Antrian</p>
-          </Card>
-          <Card className="p-4 text-center">
-            <h2 className="text-4xl font-bold">{notInQueuePatients}</h2>
-            <p className="text-sm text-muted-foreground">Belum Masuk Antrian</p>
-          </Card>
-          <Card className="p-4 text-center">
-            <h2 className="text-4xl font-bold">{cancelledPatients}</h2>
-            <p className="text-sm text-muted-foreground">Batal Konsultasi</p>
-          </Card>
         </div>
       )}
 
-      {/* Patient Table */}
+      {/* Patient Table - Styled like Today's tab */}
       {selectedDate && filteredPatients.length > 0 && (
         <div className="overflow-hidden rounded-lg border">
-          <div className="grid grid-cols-5 bg-neutral-100 p-4 font-medium">
+          <div className="grid grid-cols-5 bg-primary-100 text-primary-200 border-b border-primary-200 p-4 font-medium">
             <div>Nama</div>
             <div>Sesi Konsultasi</div>
             <div>Gejala Sakit</div>
             <div>Diagnosa</div>
-            <div>Rekam Medis</div>
+            <div>Status</div>
           </div>
-          <div className="divide-y">
+          <div className="divide-y max-h-[384px] overflow-y-auto">
             {filteredPatients.map((patient) => (
               <div
                 key={patient.id}
@@ -179,7 +164,21 @@ export function ConsultationHistory({ patients, onSelectPatient }: ConsultationH
                 <div>{patient.sessionTime}</div>
                 <div>{patient.department}</div>
                 <div>{patient.diagnosis}</div>
-                <div>Tambah</div>
+                <div>
+                  <span
+                    className={`inline-block rounded-full px-2 py-1 text-xs ${
+                      patient.consultationStatus === "Sudah Konsultasi"
+                        ? "bg-blue-100 text-blue-800"
+                        : patient.consultationStatus === "Belum Konsultasi"
+                          ? "bg-yellow-100 text-yellow-800"
+                          : patient.consultationStatus === "Selesai"
+                            ? "bg-green-100 text-green-800"
+                            : "bg-red-100 text-red-800"
+                    }`}
+                  >
+                    {patient.consultationStatus}
+                  </span>
+                </div>
               </div>
             ))}
           </div>

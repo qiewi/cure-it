@@ -86,19 +86,6 @@ export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien"
           <div className="flex items-center gap-4">
             {/* Desktop Navigation */}
             <div className="hidden items-center gap-4 md:flex">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-2">
-                    <span className="font-light">Lokasi</span>
-                    <ChevronDown className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-[200px] bg-white">
-                  {locations.map((location) => (
-                    <DropdownMenuItem key={location}>{location}</DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
 
               <Button variant="ghost" size="icon" className="rounded-full">
                 <Bell className="h-5 w-5" />
@@ -127,19 +114,6 @@ export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien"
 
             {/* Mobile Menu Button and Dropdown */}
             <div className="md:hidden flex items-center gap-2">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-2">
-                    <span className="font-light">Lokasi</span>
-                    <ChevronDown className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-[200px] bg-white">
-                  {locations.map((location) => (
-                    <DropdownMenuItem key={location}>{location}</DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
               <Button variant="ghost" size="icon" className="rounded-full">
                 <Bell className="h-5 w-5" />
                 <span className="sr-only">Notifications</span>
