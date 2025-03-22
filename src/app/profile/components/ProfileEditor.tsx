@@ -8,7 +8,6 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { toast } from "sonner"
 import { Camera, CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 import { Calendar } from "@/components/ui/calendar"
@@ -74,9 +73,6 @@ export function ProfileEditor({ initialProfileData }: ProfileEditorProps) {
       setProfileData(tempData)
       setIsEditing(false)
       setErrors({})
-      toast.success("Profile updated", {
-        description: "Your profile has been updated successfully",
-      })
     } catch (error) {
       if (error instanceof z.ZodError) {
         // Convert Zod errors to a more usable format
@@ -86,9 +82,6 @@ export function ProfileEditor({ initialProfileData }: ProfileEditorProps) {
           formattedErrors[path] = err.message
         })
         setErrors(formattedErrors)
-        toast.error("Validation Error", {
-          description: "Please check the form for errors",
-        })
       }
     }
   }
@@ -117,16 +110,10 @@ export function ProfileEditor({ initialProfileData }: ProfileEditorProps) {
     const file = event.target.files?.[0]
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
-        toast.error("File too large", {
-          description: "Please select an image smaller than 5MB",
-        })
         return
       }
 
       if (!file.type.startsWith("image/")) {
-        toast.error("Invalid file type", {
-          description: "Please select an image file",
-        })
         return
       }
 
@@ -135,9 +122,6 @@ export function ProfileEditor({ initialProfileData }: ProfileEditorProps) {
         setProfileImage(e.target?.result as string)
       }
       reader.readAsDataURL(file)
-      toast.success("Profile picture updated", {
-        description: "Your profile picture will be saved when you click Save",
-      })
     }
   }
 

@@ -6,14 +6,12 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import Logo from "@Images/logo.svg"
-import { Bell, ChevronDown, Home, Menu, MessageSquare, Settings, List } from "lucide-react"
+import { Bell, Home, Menu, MessageSquare, Settings, List } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-const locations = ["Jakarta Pusat", "Jakarta Barat", "Jakarta Timur", "Jakarta Selatan", "Jakarta Utara"]
 
 interface NavbarProps {
   children: React.ReactNode
@@ -148,14 +146,6 @@ export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien"
                         >
                           <MessageSquare className="h-6 w-6" />
                           <span className="text-xl">Triage</span>
-                        </Link>
-                        <Link
-                          href="/appointments"
-                          className="flex items-center gap-3 rounded-lg px-3 py-4 text-black transition-colors hover:bg-accent"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          <List className="h-6 w-6" />
-                          <span className="text-xl">History</span>
                         </Link>
                       </div>
                     </nav>
