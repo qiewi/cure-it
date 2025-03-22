@@ -1,8 +1,10 @@
+"use server"
+
 import { LoginForm } from "../components/LoginForm"
 
-export default function Login() {
+export default async function Login() {
   return (
-    <LoginForm />
+      <LoginForm />
   )
 }
 
