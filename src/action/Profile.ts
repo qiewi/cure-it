@@ -3,6 +3,9 @@ import {auth} from "@/auth";
 import {prisma} from "@/prisma";
 import { Gender } from "@prisma/client";
 import {z} from "zod";
+import { UTApi } from "uploadthing/server";
+
+const utapi = new UTApi();
 
 export async function GetUserProfile() {
     const session = await auth()
@@ -58,53 +61,84 @@ const editProfileSchema = z.object({
 export type EditProfileData = z.infer<typeof editProfileSchema>
 
 
-export async function mutateUserProfile(data: EditProfileData, photoProfile: File) {
-    const session = await auth()
-    if (!session) return null
 
-    const parsedData = editProfileSchema.safeParse(data)
-    if (!parsedData.success) {
-        console.error("Validation Error:", parsedData.error.errors);
-        throw new Error("Invalid data format");
-    }
 
-    try {
-        await prisma.user.update({
-            where: {id: session.user.id},
-            data: {
-                name: parsedData.data.name,
-                email: parsedData.data.email,
-                bloodType: parsedData.data.bloodType,
-                gender: parsedData.data.gender as Gender,
-                birthdate: new Date(parsedData.data.birthDate),
-                birthplace: parsedData.data.birthPlace,
-                idCardNumber: parseInt(parsedData.data.idNumber),
-                phoneNumber: parseInt(parsedData.data.phoneNumber),
-                address: parsedData.data.address,
-            },
-        });
+export async function mutateUserProfile(data: EditProfileData, photoProfile: File | null) {
+  const session = await auth()
+  if (!session) return null
 
-        return {
-            success: true,
-            errorCode: 200,
-            message: "Successfully updated the user profile",
-        };
-    } catch (error) {
-        if (process.env.NODE_ENV === "development") {
-            console.error(error);
-            return {
-                success: false,
-                errorCode: 400,
-                message: error,
-            };
-        } else {
-            return {
-                success: false,
-                errorCode: 400,
-                message: "An error occurred while updating the user profile",
-            };
+  const parsedData = editProfileSchema.safeParse(data)
+  if (!parsedData.success) {
+    console.error("Validation Error:", parsedData.error.errors);
+    throw new Error("Invalid data format");
+  }
+
+  try {
+    // Data to update in the user record
+    const updateData: any = {
+      name: parsedData.data.name,
+      email: parsedData.data.email,
+      bloodType: parsedData.data.bloodType,
+      gender: parsedData.data.gender as Gender,
+      birthdate: new Date(parsedData.data.birthDate),
+      birthplace: parsedData.data.birthPlace,
+      idCardNumber: parsedData.data.idNumber,
+      phoneNumber: parsedData.data.phoneNumber,
+      address: parsedData.data.address,
+    };
+
+    // Upload profile photo if provided
+    if (photoProfile) {
+      // Get current user to check for existing image
+      const currentUser = await prisma.user.findUnique({
+        where: { id: session.user.id },
+        select: { image: true }
+      });
+
+      // Delete old image if it exists and starts with the UploadThing URL pattern
+      if (currentUser?.image && currentUser.image.includes('uploadthing')) {
+        const fileKey = currentUser.image.split('/').pop();
+        if (fileKey) {
+          await utapi.deleteFiles(fileKey).catch(err => {
+            console.error("Error deleting old profile image:", err);
+          });
         }
+      }
+
+      // Upload new image using the new property
+      const uploadResult = await utapi.uploadFiles([photoProfile]);
+      if (uploadResult[0]?.data?.ufsUrl) {
+        updateData.image = uploadResult[0].data.ufsUrl;
+      }
     }
+
+    // Update user record with all data including potentially new image URL
+    await prisma.user.update({
+      where: { id: session.user.id },
+      data: updateData,
+    });
+
+    return {
+      success: true,
+      errorCode: 200,
+      message: "Successfully updated the user profile",
+    };
+  } catch (error) {
+    if (process.env.NODE_ENV === "development") {
+      console.error(error);
+      return {
+        success: false,
+        errorCode: 400,
+        message: error,
+      };
+    } else {
+      return {
+        success: false,
+        errorCode: 400,
+        message: "An error occurred while updating the user profile",
+      };
+    }
+  }
 }
 
 const formSchema = z

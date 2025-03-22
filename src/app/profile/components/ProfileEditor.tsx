@@ -70,12 +70,9 @@ export function ProfileEditor({ initialProfileData }: ProfileEditorProps) {
 
   const handleSave = async () => {
     try {
-      // Validate the form data
+      console.log("Saving profile data", tempData, fileInputRef.current?.files?.[0])
       profileSchema.parse(tempData)
       if (!fileInputRef.current?.files?.[0]) {
-        toast.error("Profile picture required", {
-          description: "Please select a profile picture",
-        })
         return
       }
       const res = await mutateUserProfile(tempData, fileInputRef.current?.files?.[0])
