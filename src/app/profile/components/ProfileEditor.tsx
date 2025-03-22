@@ -72,9 +72,6 @@ export function ProfileEditor({ initialProfileData }: ProfileEditorProps) {
     try {
       console.log("Saving profile data", tempData, fileInputRef.current?.files?.[0])
       profileSchema.parse(tempData)
-      if (!fileInputRef.current?.files?.[0]) {
-        return
-      }
       const res = await mutateUserProfile(tempData, fileInputRef.current?.files?.[0])
       if (!res?.success) {
         toast.error("Failed to update profile", {

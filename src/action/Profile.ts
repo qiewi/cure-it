@@ -63,7 +63,7 @@ export type EditProfileData = z.infer<typeof editProfileSchema>
 
 
 
-export async function mutateUserProfile(data: EditProfileData, photoProfile: File | null) {
+export async function mutateUserProfile(data: EditProfileData, photoProfile: File | undefined) {
   const session = await auth()
   if (!session) return null
 
