@@ -72,8 +72,6 @@ const hospitals = [
 ]
 
 export default async function Home() {
-  const session = await auth()
-
   return (
     <body>
       <Navbar>
