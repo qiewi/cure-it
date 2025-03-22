@@ -23,7 +23,7 @@ interface NavbarProps {
 
 export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien" } }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
 
   // Check authentication status on component mount
   useEffect(() => {
@@ -104,10 +104,12 @@ export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien"
           <div className="flex items-center gap-4">
             {/* Desktop Navigation */}
             <div className="hidden items-center gap-4 md:flex">
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <Bell className="h-5 w-5" />
-                <span className="sr-only">Notifications</span>
-              </Button>
+                <Button variant="ghost" size="icon" className="rounded-full" asChild>
+                  <Link href="/notifications">
+                    <Bell className="h-5 w-5" />
+                    <span className="sr-only">Notifications</span>
+                  </Link>
+                </Button>
 
               {isLoggedIn ? (
                 <Link
