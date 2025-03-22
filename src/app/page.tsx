@@ -1,8 +1,11 @@
+"use server"
+
 import { HeroSection } from "@/components/hero/HeroSection"
 import { BestDoctorsSection } from "@/components/hero/BestDoctorsSection"
 import { SpecializationsSection } from "@/components/hero/SpecializationsSection"
 import { PopularHospitalsSection } from "@/components/hero/PopularHospitalsSection"
 import { Navbar } from "@/components/layout/Navbar"
+import {auth} from "@/auth";
 
 // Specialty data
 const specialties = [
@@ -68,7 +71,9 @@ const hospitals = [
   },
 ]
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth()
+
   return (
     <body>
       <Navbar>
