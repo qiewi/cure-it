@@ -1,8 +1,7 @@
 import { ProfileEditor } from "@/app/profile/components/ProfileEditor"
+import type { ProfileData } from "@/app/profile/components/ProfileEditor"
 
 // Initial profile data that would typically come from a database
-import { ProfileData } from "@/app/profile/components/ProfileEditor";
-
 const initialProfileData: ProfileData = {
   name: "Mr. Kure It",
   email: "business@cureit.com",
@@ -14,6 +13,7 @@ const initialProfileData: ProfileData = {
   idNumber: "1234567890123456",
   phoneNumber: "0812345678901",
   address: "Jl. Cikuda No.37, Cileles, Kec. Jatinangor, Kabupaten Sumedang, Jawa Barat 45363",
+  profileImage: "/images/doctor.svg", 
 }
 
 export default function ProfilePage() {

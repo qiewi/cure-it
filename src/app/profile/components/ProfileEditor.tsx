@@ -8,6 +8,7 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { toast } from "sonner"
 import { Camera, CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 import { Calendar } from "@/components/ui/calendar"
@@ -40,22 +41,19 @@ const profileSchema = z.object({
     .min(10, "Phone number must be at least 10 digits")
     .regex(/^\d+$/, "Phone number must contain only digits"),
   address: z.string().min(10, "Address must be at least 10 characters"),
+  profileImage: z.string().optional(),
 })
 
 export type ProfileData = z.infer<typeof profileSchema>
 
 interface ProfileEditorProps {
-  initialProfileData: Omit<ProfileData, "birthDate"> & { birthDate: Date }
+  initialProfileData: ProfileData
 }
 
 export function ProfileEditor({ initialProfileData }: ProfileEditorProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [errors, setErrors] = useState<Partial<Record<keyof ProfileData, string>>>({})
-  const [profileData, setProfileData] = useState<ProfileData>({
-    ...initialProfileData,
-    birthDate: new Date(initialProfileData.birthDate),
-  })
-  const [profileImage, setProfileImage] = useState<string | null>(null)
+  const [profileData, setProfileData] = useState<ProfileData>(initialProfileData)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [tempData, setTempData] = useState<ProfileData>(profileData)
@@ -73,6 +71,9 @@ export function ProfileEditor({ initialProfileData }: ProfileEditorProps) {
       setProfileData(tempData)
       setIsEditing(false)
       setErrors({})
+      toast.success("Profile updated", {
+        description: "Your profile has been updated successfully",
+      })
     } catch (error) {
       if (error instanceof z.ZodError) {
         // Convert Zod errors to a more usable format
@@ -82,6 +83,9 @@ export function ProfileEditor({ initialProfileData }: ProfileEditorProps) {
           formattedErrors[path] = err.message
         })
         setErrors(formattedErrors)
+        toast.error("Validation Error", {
+          description: "Please check the form for errors",
+        })
       }
     }
   }
@@ -110,16 +114,26 @@ export function ProfileEditor({ initialProfileData }: ProfileEditorProps) {
     const file = event.target.files?.[0]
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
+        toast.error("File too large", {
+          description: "Please select an image smaller than 5MB",
+        })
         return
       }
 
       if (!file.type.startsWith("image/")) {
+        toast.error("Invalid file type", {
+          description: "Please select an image file",
+        })
         return
       }
 
       const reader = new FileReader()
       reader.onload = (e) => {
-        setProfileImage(e.target?.result as string)
+        const imageDataUrl = e.target?.result as string
+        setTempData((prev) => ({ ...prev, profileImage: imageDataUrl }))
+        toast.success("Profile picture updated", {
+          description: "Your profile picture will be saved when you click Save",
+        })
       }
       reader.readAsDataURL(file)
     }
@@ -132,7 +146,7 @@ export function ProfileEditor({ initialProfileData }: ProfileEditorProps) {
           className={`relative h-24 w-24 md:h-32 md:w-32 flex-shrink-0 ${isEditing ? "cursor-pointer group" : ""}`}
           onClick={handleProfileImageClick}
         >
-          <Image src={profileImage || Doctor} alt="Profile" fill className="rounded-full object-cover" />
+          <Image src={tempData.profileImage || Doctor} alt="Profile" fill className="rounded-full object-cover" />
           {isEditing && (
             <div className="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
               <Camera className="text-white h-8 w-8" />
