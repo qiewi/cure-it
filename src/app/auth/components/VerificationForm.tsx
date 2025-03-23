@@ -2,6 +2,7 @@
 
 import { useState, useRef, type KeyboardEvent, type ClipboardEvent } from "react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export function VerificationForm() {
   const [code, setCode] = useState<string[]>(Array(5).fill(""))
@@ -113,13 +114,15 @@ export function VerificationForm() {
       </div>
 
       <div className="pt-16">
-        <Button
-          onClick={handleSubmit}
-          disabled={code.some((digit) => digit === "")}
-          className="w-full bg-[#47A5C9] hover:bg-[#47A5C9]"
-        >
-          Verifikasi
-        </Button>
+        <Link href="/auth/biodata">
+          <Button
+            onClick={handleSubmit}
+            disabled={code.some((digit) => digit === "")}
+            className="w-full bg-[#47A5C9] hover:bg-[#47A5C9]"
+          >
+            Verifikasi
+          </Button>
+        </Link>
       </div>
     </div>
   )

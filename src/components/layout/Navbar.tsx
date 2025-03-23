@@ -55,7 +55,7 @@ export function Navbar({ children, session }: NavbarProps) {
           <Button variant="ghost" size="icon" className="rounded-xl" asChild>
             <Link href="/history">
               <List className="h-5 w-5" />
-              <span className="sr-only">Appointments</span>
+              <span className="sr-only">History</span>
             </Link>
           </Button>
         </div>
@@ -93,7 +93,7 @@ export function Navbar({ children, session }: NavbarProps) {
             {/* Desktop Navigation */}
             <div className="hidden items-center gap-4 md:flex">
               <Button variant="ghost" size="icon" className="rounded-full" asChild>
-                <Link href="/notifications">
+                <Link href="/history">
                   <Bell className="h-5 w-5" />
                   <span className="sr-only">Notifications</span>
                 </Link>
