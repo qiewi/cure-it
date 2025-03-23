@@ -77,11 +77,6 @@ export async function sendMessage(threadId: string, message: string) {
             patientCount: true,
             timeMinutes: true
           },
-          where: {
-            speciality: {
-              contains: parsedContent.diagnosis.diagnosa
-            }
-          }
         })
         return {
           content: parsedContent,
