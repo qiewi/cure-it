@@ -25,7 +25,7 @@ const phaseInfo = {
   consultation: {
     title: "Fase Konsultasi",
     description: "Segera masuk ke ruang konsultasi",
-    time: "12.30 WIB"
+    time: "12.40 WIB"
   },
   prescription: {
     title: "Keterangan Obat",
