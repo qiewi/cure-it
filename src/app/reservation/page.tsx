@@ -2,14 +2,14 @@ import { ReservationContent } from "@/app/reservation/components/ReservationCont
 
 // Sample documents data
 const documents = [
-  { id: 1, name: "Nama File", size: "23 mb" },
-  { id: 2, name: "Nama File", size: "23 mb" },
+  { id: 1, name: "Rekam Medis", size: "26 mb" },
+  { id: 2, name: "Form Registrasi", size: "13 mb" },
 ]
 
 // Sample payment data with numeric values
 const paymentItems = [
   { label: "Dokter", amount: "Rp 20.000,00" },
-  { label: "Pajak (8%)", amount: "Rp 2.000,00" },
+  { label: "Pajak (10%)", amount: "Rp 2.000,00" },
 ]
 
 // Define phases
@@ -20,14 +20,17 @@ const phaseInfo = {
   registration: {
     title: "Fase Registrasi",
     description: "Di bawah adalah status antrian terbaru",
+    time: "12.00 WIB"
   },
   consultation: {
     title: "Fase Konsultasi",
     description: "Segera masuk ke ruang konsultasi",
+    time: "12.30 WIB"
   },
   prescription: {
     title: "Keterangan Obat",
     description: "Mohon segera selesaikan pembayaran obat Anda",
+    time: "13.20 WIB"
   },
 } as const
 

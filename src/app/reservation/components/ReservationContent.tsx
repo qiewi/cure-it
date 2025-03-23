@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
-import { ChevronLeft, ChevronRight, Clock, Users } from "lucide-react"
+import { ChevronLeft, ChevronRight, Clock, MessageSquare, PhoneCall, Users } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -20,6 +20,7 @@ type Phase = "registration" | "consultation" | "prescription"
 interface PhaseInfo {
   title: string
   description: string
+  time: string
   icon?: React.ComponentType<any>
 }
 
@@ -166,7 +167,7 @@ export function ReservationContent({
                         {/* Time */}
                         <div className="flex items-center gap-1 mb-4 ml-6 text-xs text-muted-foreground">
                           <Clock size={12} />
-                          <span>01:40 PM</span>
+                          <span>{phaseInfo[phase].time}</span>
                         </div>
 
                         <Card
@@ -245,9 +246,8 @@ export function ReservationContent({
                     />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg">{doctorInfo.name}</h3>
+                    <h3 className="font-semibold text-xl">{doctorInfo.name}</h3>
                     <p className="text-sm text-muted-foreground">{doctorInfo.specialty}</p>
-                    <p className="mt-1 font-medium">{doctorInfo.price}</p>
                   </div>
                 </div>
 
@@ -262,10 +262,9 @@ export function ReservationContent({
                   </div>
                   <h3 className="mt-3 font-semibold text-lg text-primary-200">{hospitalInfo.name}</h3>
                   <p className="text-sm text-muted-foreground">{hospitalInfo.location}</p>
-                  <p className="text-xs text-muted-foreground mt-1">Supporting or descriptive text for the card...</p>
                   <div className="mt-3 flex gap-2">
-                    <span className="rounded bg-primary-200 px-2 py-1 text-xs text-white">A</span>
-                    <span className="rounded bg-primary-200 px-2 py-1 text-xs text-white">A</span>
+                    <MessageSquare className="h-5 w-5 text-primary-200" />
+                    <PhoneCall className="h-5 w-5 text-primary-200" />
                   </div>
                 </div>
               </Card>
