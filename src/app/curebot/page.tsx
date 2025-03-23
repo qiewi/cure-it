@@ -13,7 +13,7 @@ const doctors: {
 export default function ChatPage() {
   return (
     <div className="relative flex h-full">
-      <ChatInterface initialMessages={[{ type: "system", content: "What concerns you today?" }]} doctors={doctors} />
+      <ChatInterface initialMessages={[{ type: "system", content: "Apa yang Anda rasakan saat ini?" }]} doctors={doctors} />
     </div>
   )
 }
