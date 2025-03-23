@@ -16,6 +16,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { cn } from "@/lib/utils"
 
 import Doctor from "@Images/doctor.svg"
+import {mutateUserProfile} from "@/action/Profile";
 
 // Define the validation schema with Zod
 const profileSchema = z.object({
@@ -64,10 +65,17 @@ export function ProfileEditor({ initialProfileData }: ProfileEditorProps) {
     setErrors({})
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     try {
-      // Validate the form data
+      console.log("Saving profile data", tempData, fileInputRef.current?.files?.[0])
       profileSchema.parse(tempData)
+      const res = await mutateUserProfile(tempData, fileInputRef.current?.files?.[0])
+      if (!res?.success) {
+        toast.error("Failed to update profile", {
+          description: "An error occurred while updating your profile",
+        })
+        return
+      }
       setProfileData(tempData)
       setIsEditing(false)
       setErrors({})

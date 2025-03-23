@@ -12,6 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { signIn } from "next-auth/react"
+import {toast} from "sonner";
 
 const formSchema = z
   .object({
@@ -37,7 +38,19 @@ export function LoginForm() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    try {
+        signIn("credentials", {
+            email: values.email,
+            password: values.password,
+            redirectTo: "/",
+        })
+        toast.success("Berhasil masuk.")
+    } catch (error) {
+        if (process.env.NODE_ENV === "development") {
+            console.error(error)
+        }
+        toast.error("Gagal masuk. Silakan coba lagi.")
+    }
   }
 
   return (

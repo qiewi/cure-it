@@ -12,6 +12,8 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
+import {registerUser} from "@/action/Profile";
+import { toast } from "sonner"
 
 const formSchema = z
   .object({
@@ -51,9 +53,24 @@ export function RegisterForm() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
-    // Handle form submission here
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+      try {
+          const parsedData = formSchema.safeParse(values)
+          if (!parsedData.success) {
+              throw new Error("Invalid data format");
+          }
+          const res = await registerUser(values);
+          if (res.success) {
+                toast.success("User registration successful");
+          } else {
+                toast.error("User registration failed");
+          }
+      } catch (error) {
+          if (process.env.NODE_ENV === "development") {
+            console.error(error);
+          }
+          toast.error("User registration failed");
+      }
   }
 
   return (

@@ -14,11 +14,12 @@ interface RecommendationsPanelProps {
     patientCount: number
     timeMinutes: number
   }[]
+  diagnosis: string[]
   isOpen: boolean
   onClose: () => void
 }
 
-export function RecommendationsPanel({ doctors, isOpen, onClose }: RecommendationsPanelProps) {
+export function RecommendationsPanel({ doctors, isOpen, diagnosis, onClose }: RecommendationsPanelProps) {
   return (
     <div
       className={cn(
@@ -37,7 +38,14 @@ export function RecommendationsPanel({ doctors, isOpen, onClose }: Recommendatio
           <div className="space-y-8">
             <div>
               <h3 className="text-xl font-bold mb-2">Penyakit yang Anda alami:</h3>
-              <p className="text-xl">Batuk Berdahak</p>
+
+              {diagnosis.length > 0 ? (<ul className="list-disc list-inside">
+                {diagnosis.map((diagnose, index) => (
+                    <li key={index}>{diagnose}</li>
+                ))}
+              </ul>) : (
+                  <p className="text-muted-foreground">Tidak ada diagnosis yang ditemukan.</p>
+              )}
             </div>
 
             <div>

@@ -11,38 +11,21 @@ import { Bell, Home, Menu, MessageSquare, Settings, List, LogIn } from "lucide-r
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { type Session } from "next-auth";
+import {signOut} from "next-auth/react";
 
 interface NavbarProps {
-  children: React.ReactNode
-  user?: {
-    name: string
-    role: string
-    image?: string
-  } | null
+  children: React.ReactNode;
+  session: Session | null;
 }
 
-export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien" } }: NavbarProps) {
+export function Navbar({ children, session }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(true)
 
-  // Check authentication status on component mount
-  useEffect(() => {
-    // This is a placeholder for actual authentication logic
-    // In a real app, you would check a token in localStorage or cookies
-    const token = localStorage.getItem("auth_token")
-    setIsLoggedIn(!!token)
-  }, [])
-
-  // Mock login function (for development only)
-  const handleLogin = () => {
-    localStorage.setItem("auth_token", "mock_token")
-    setIsLoggedIn(true)
-  }
-
-  // Mock logout function
-  const handleLogout = () => {
-    localStorage.removeItem("auth_token")
-    setIsLoggedIn(false)
+  const isLoggedIn = !!session?.user
+  const user = session?.user
+  const handleLogout = async () => {
+    signOut()
   }
 
   return (
@@ -117,12 +100,14 @@ export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien"
                   className="flex items-center gap-3 rounded-full border bg-white px-3 py-1 min-w-[220px] transition-colors hover:bg-neutral-100"
                 >
                   <Avatar>
-                    <AvatarImage src={user?.image} />
+                    <AvatarImage src={user?.image || undefined} />
                     <AvatarFallback>
                       {user?.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
+                          ? user.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")
+                          : "U"}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col">
@@ -209,12 +194,14 @@ export function Navbar({ children, user = { name: "Mr. Kure Ite", role: "Pasien"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           <Avatar>
-                            <AvatarImage src={user?.image} />
+                            <AvatarImage src={user?.image || undefined} />
                             <AvatarFallback>
                               {user?.name
-                                .split(" ")
-                                .map((n) => n[0])
-                                .join("")}
+                                ? user.name
+                                    .split(" ")
+                                    .map((n) => n[0])
+                                    .join("")
+                                : "U"}
                             </AvatarFallback>
                           </Avatar>
                           <div className="flex flex-col">
