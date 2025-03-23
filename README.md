@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <img src="https://github.com/user-attachments/assets/e37ea6a7-1e41-4f04-b81b-3bb8d257ef9b" alt="Project Banner">
-  <h1 align="center">CureIT - Next Level of Health Management</h1>
+  <h1 align="center">👨‍⚕️ CureIT - Next Level of Health Management</h1>
 
   <p align="center">
     <h3> Akses Layanan Kesehatan dalam Satu Genggaman! </h3>
