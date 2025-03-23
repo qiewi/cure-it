@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<!-- INTRO -->
+<br />
+<div align="center">
+  <h1 align="center">CureIT</h1>
 
-## Getting Started
+  <p align="center">
+    <h3> Akses Layanan Kesehatan dalam Satu Genggaman! </h3>
+    <br />
+    <a href="https://github.com/qiewi/cure-it.git">Report Bug</a>
+    ·
+    <a href="https://github.com/qiewi/cure-it.git">Request Feature</a>
+<br>
+<br>
 
-First, run the development server:
+  </p>
+</div>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<!-- CONTRIBUTOR -->
+<div align="center" id="contributor">
+  <strong>
+    <h3>Dibuat oleh Kelompok "Hecker" :</h3>
+    <table align="center">
+      <tr>
+        <td>Nama</td>
+        <td>Email</td>
+      </tr>
+      <tr>
+        <td>Rizqi Andhika Pratama</td>
+        <td>qiewifruit@gmail.com</td>
+     </tr>
+     <tr>
+        <td>Jason Jahja</td>
+        <td>jasonjahja@gmail.com</td>
+    </tr>
+     <tr>
+        <td>Jihan Aurelia</td>
+        <td>jihanaurelia2004@gmail.com</td>
+    </tr>
+    <tr>
+        <td>Muhammad Fauzan Azhim</td>
+        <td>mfauzan.az23@gmail.com</td>
+    </tr>
+    </table>
+  </strong>
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Daftar Isi
+1. [Deskripsi Program](#deskripsi-program)
+2. [Fitur](#fitur)
+5. [Getting Started](#getting-started)
+6. [Hasil Deploy](#hasil-deploy)
+7. [Video Demo](#video-demo)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## **Deskripsi Program**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+CureIT adalah solusi efisiensi pelayanan rumah sakit berbasis teknologi terkini yang dirancang untuk meningkatkan transparansi, efisiensi, dan kualitas layanan kesehatan. Dengan fitur utama transparansi layanan dan Chatbot AI, sistem ini memberikan diagnosis awal yang akurat dan merekomendasikan fasilitas kesehatan yang sesuai. Selain itu, CureIT menawarkan sistem terintegrasi berbasis cloud yang memastikan akses mudah, cepat, dan aman ke data pasien, termasuk informasi administrasi dan rekam medis. Dengan menggabungkan keunggulan AI dan fleksibilitas SaaS, CureIT tidak hanya meningkatkan efisiensi operasional, tetapi juga memberikan pengalaman layanan kesehatan yang lebih baik bagi pasien.
 
-## Learn More
+## **Fitur**
 
-To learn more about Next.js, take a look at the following resources:
+Platform yang digunakan dalam pengembangan CureIT mengadopsi teknologi web modern dengan mengimplementasikan **Progressive Web App (PWA)**.
+| Kode | Fitur           | Deskripsi                                                          |
+|------|-----------------|--------------------------------------------------------------------|
+| FD-1 | Login/ Register | Pengguna wajib membuat akun untuk mengakses layanan utama.         |
+| FD-2 | CureBot         | AI menganalisis gejala yang diinput dan memberikan informasi awal. |
+| FD-3 | CureGuide       | Memberikan rekomendasi dokter atau rumah sakit berdasarkan gejala. |
+| FD-4 | CureTrack       | Menampilkan informasi real-time terkait layanan rumah sakit.       |
+| FD-5 | CuRecord        | Menyimpan riwayat penyakit, hasil konsultasi, dan resep obat.      |
+| FD-6 | Profile         | Menyimpan data pribadi dan preferensi kesehatan pengguna.          |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## **Getting Started**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### **Prerequisites**
+- Node.js
+- npm (Node Package Manager)
+- Git
 
-## Deploy on Vercel
+### **Installation**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Clone repositori
+   ```sh
+   git clone
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. Instal dependensi
+    ```sh
+    npm install
+    ```
+
+3. jalankan development server:
+
+    ```sh
+    npm run dev
+    # or
+    yarn dev
+    # or
+    pnpm dev
+    # or
+    bun dev
+    ```
+
+3. Buka [http://localhost:3000](http://localhost:3000) di browser.
+
+>***You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.***
+
+## **Hasil Deploy**
+Buka Link berikut: [CureIt]()
+
+## **Video Demo**
+Tautan link demo : [Video]()
+
+<br>
+<h3 align="center"> TERIMA KASIH! </h3>
