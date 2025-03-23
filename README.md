@@ -6,7 +6,7 @@
   <p align="center">
     <h3> Akses Layanan Kesehatan dalam Satu Genggaman! </h3>
     <br />
-    <a href="https://github.com/qiewi/cure-it.git">Report Bug</a>
+    <a href="https://github.com/qiewi/cure-it.git">Report Bugs</a>
     ·
     <a href="https://github.com/qiewi/cure-it.git">Request Feature</a>
 <br>

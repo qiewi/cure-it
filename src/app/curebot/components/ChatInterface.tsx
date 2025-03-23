@@ -93,7 +93,7 @@ export function ChatInterface({initialMessages, doctors}: ChatInterfaceProps) {
             if (response.content.model_status === "tidak yakin") {
                 setMessages(prev => [...prev, {
                     type: "system",
-                    content: response.content.question || "I'm not sure how to respond to that."
+                    content: response.content.question || "Maaf saya tidak tahu responnya :."
                 }])
             } else {
                 setMessages(prev => [...prev, {
