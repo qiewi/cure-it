@@ -1,14 +1,18 @@
 import Image from "next/image"
+import Medium from "@Images/hero-promotion-md.svg"
+import Small from "@Images/hero-promotion-sm.svg"
 
-interface HeroSectionProps {
-  imageUrl: string
-}
-
-export function HeroSection({ imageUrl }: HeroSectionProps) {
+export function HeroSection() {
   return (
-    <div className="relative w-full h-[200px] md:h-[400px] bg-primary-100">
-      <Image src={imageUrl || "/placeholder.svg"} alt="Healthcare Hero" fill className="object-cover" priority />
+    <div>
+      <div className="relative w-full hidden md:block md:h-[400px] bg-primary-100">
+        <Image src={Medium} alt="Healthcare Hero" fill className="object-cover" priority />
+      </div>
+      <div className="relative w-full md:hidden h-[360px] bg-primary-100">
+        <Image src={Small} alt="Healthcare Hero" fill className="object-cover" priority />
+      </div>
     </div>
+    
   )
 }
 

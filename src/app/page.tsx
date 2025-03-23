@@ -78,7 +78,7 @@ export default async function Home() {
       <Navbar session={session}>
           <main className="flex flex-col min-h-screen bg-white">
             {/* Hero Section */}
-            <HeroSection imageUrl="/images/hero.svg" />
+            <HeroSection/>
 
             {/* Content Container */}
             <div className="container mx-auto -mt-4 relative z-10 mb-12">
