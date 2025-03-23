@@ -58,7 +58,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ id, image, name, specialty, pri
         /* 💻 Jika layar desktop, tampilkan layout desktop */
         <div className="overflow-hidden shadow-md bg-neutral-50">
           {/* Gambar Dokter */}
-          <div className="relative w-full h-[184px] bg-neutral-200 flex items-center justify-center">
+          <div className="relative w-full h-full bg-neutral-200 flex items-center justify-center">
             <Image
               src={image || "/placeholder.svg"}
               alt={name}
