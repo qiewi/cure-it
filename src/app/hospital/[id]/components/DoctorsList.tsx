@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import DoctorCard from "@/components/ui/doctorCard"
+import DoctorCard from "@/components/ui/DoctorCard"
 import { useMediaQuery } from "@/hooks/use-mobile"
 
 interface Doctor {
