@@ -5,7 +5,6 @@ export default function Biodata() {
     <div className="flex mt-8 h-full">
       <BiodataForm />
     </div>
-       
   )
 }
 

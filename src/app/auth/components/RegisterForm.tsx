@@ -14,6 +14,8 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { toast } from "sonner"
+import {signIn} from "next-auth/react";
+import {registerUser} from "@/action/Profile";
 
 const formSchema = z
   .object({
@@ -55,21 +57,24 @@ export function RegisterForm() {
     },
   })
 
-  // Simplified onSubmit function that just validates and navigates
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmitting(true)
+    // Simplified onSubmit function that just validates and navigates
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        setIsSubmitting(true)
 
-    // Simulate a brief loading state
-    setTimeout(() => {
-      // Just show a success message and navigate
-      toast.success("Pendaftaran berhasil!")
-      router.push("/auth/verification")
-      setIsSubmitting(false)
-    }, 500)
-
-    // Note: In a real implementation, you would call the registerUser function here
-    // const res = await registerUser(values);
-  }
+        const response = await registerUser(values)
+        if (!response.success) {
+            setIsSubmitting(false)
+            console.error(response.message)
+            return
+        }
+        await signIn("credentials", {
+            email: values.email,
+            password: values.password,
+            redirect: false,
+        })
+        router.push("/auth/verification")
+        setIsSubmitting(false)
+    }
 
   return (
     <div className="space-y-6">
@@ -271,6 +276,9 @@ export function RegisterForm() {
         type="button"
         className="w-full border-2 bg-transparent text-black py-6 hover:bg-gray-100 rounded-4xl"
         style={{ borderColor: "rgba(66, 133, 244, 0.5)" }}
+        onClick={() => {
+            signIn("google")
+        }}
       >
         <div className="flex flex-row items-center">
           <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">

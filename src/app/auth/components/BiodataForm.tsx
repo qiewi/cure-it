@@ -13,6 +13,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
+import {updateUserBiodata} from "@/action/Profile";
+import {router} from "next/client";
+import {useRouter} from "next/navigation";
 
 const formSchema = z
   .object({
@@ -65,6 +68,7 @@ const formSchema = z
   })
 
 export function BiodataForm() {
+    const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "onTouched", // Only validate on blur or submit
@@ -79,9 +83,13 @@ export function BiodataForm() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
-    // Handle form submission here
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+      const res = await updateUserBiodata(values)
+      if (res.success) {
+          router.push("/")
+      } else {
+          alert("Gagal memperbarui biodata")
+      }
   }
 
   return (

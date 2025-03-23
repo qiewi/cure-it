@@ -4,6 +4,7 @@ import {prisma} from "@/prisma";
 import { Gender } from "@prisma/client";
 import {z} from "zod";
 import { UTApi } from "uploadthing/server";
+import bcrypt from "bcryptjs";
 
 const utapi = new UTApi();
 
@@ -141,7 +142,7 @@ export async function mutateUserProfile(data: EditProfileData, photoProfile: Fil
   }
 }
 
-const formSchema = z
+const RegisterSchema = z
     .object({
         fullName: z.string().min(2, {
             message: "Nama harus minimal 2 karakter.",
@@ -164,21 +165,37 @@ const formSchema = z
         path: ["confirmPassword"],
     })
 
-type RegisterFormData = z.infer<typeof formSchema>
+type RegisterFormData = z.infer<typeof RegisterSchema>
 
 export async function registerUser(data: RegisterFormData) {
-    const parsedData = formSchema.safeParse(data)
+    const parsedData = RegisterSchema.safeParse(data)
     if (!parsedData.success) {
         console.error("Validation Error:", parsedData.error.errors);
         throw new Error("Invalid data format");
     }
 
     try {
+        // Check if email already exists
+        const existingUser = await prisma.user.findUnique({
+            where: { email: parsedData.data.email }
+        });
+
+        if (existingUser) {
+            return {
+                success: false,
+                errorCode: 409,
+                message: "Email already in use"
+            };
+        }
+
+        // Hash the password before storing it
+        const hashedPassword = await bcrypt.hash(parsedData.data.password, 10);
+
         await prisma.user.create({
             data: {
                 name: parsedData.data.fullName,
                 email: parsedData.data.email,
-                password: parsedData.data.password,
+                password: hashedPassword,
             },
         });
 
@@ -188,19 +205,126 @@ export async function registerUser(data: RegisterFormData) {
             message: "Successfully registered the user",
         };
     } catch (error) {
-        if (process.env.NODE_ENV === "development") {
-            console.error(error);
+        console.error("Registration error:", error);
+        return {
+            success: false,
+            errorCode: 500,
+            message: process.env.NODE_ENV === "development"
+                ? `Error: ${error instanceof Error ? error.message : String(error)}`
+                : "An error occurred while registering the user",
+        };
+    }
+}
+
+const UpdateBioSchema = z
+    .object({
+        jenisKelamin: z
+            .string({
+                required_error: "Silakan pilih jenis kelamin.",
+            })
+            .optional(),
+        tanggalLahir: z
+            .date({
+                required_error: "Silakan pilih tanggal lahir.",
+            })
+            .optional(),
+        nomorHandphone: z
+            .string()
+            .min(9, {
+                message: "Nomor handphone minimal 9 digit.",
+            })
+            .regex(/^\d+$/, {
+                message: "Nomor handphone hanya boleh berisi angka.",
+            })
+            .optional(),
+        nomorKTP: z
+            .string()
+            .length(16, {
+                message: "Nomor KTP harus 16 digit.",
+            })
+            .regex(/^\d+$/, {
+                message: "Nomor KTP hanya boleh berisi angka.",
+            })
+            .optional(),
+        alamat: z
+            .string()
+            .min(10, {
+                message: "Alamat minimal 10 karakter.",
+            })
+            .optional(),
+    })
+    .refine((data) => {
+        const { jenisKelamin, tanggalLahir, nomorHandphone, nomorKTP, alamat } = data
+        const errors = []
+
+        if (!jenisKelamin) errors.push("Jenis kelamin wajib diisi")
+        if (!tanggalLahir) errors.push("Tanggal lahir wajib diisi")
+        if (!nomorHandphone) errors.push("Nomor handphone wajib diisi")
+        if (!nomorKTP) errors.push("Nomor KTP wajib diisi")
+        if (!alamat) errors.push("Alamat wajib diisi")
+
+        return errors.length === 0 || { message: errors }
+    })
+
+type UpdateBioData = z.infer<typeof UpdateBioSchema>
+
+export async function updateUserBiodata(data: UpdateBioData) {
+    try {
+        const session = await auth()
+        if (!session) return {
+            success: false,
+            errorCode: 401,
+            message: "Unauthorized"
+        }
+
+        const parsedData = UpdateBioSchema.safeParse(data)
+        if (!parsedData.success) {
             return {
                 success: false,
                 errorCode: 400,
-                message: error,
-            };
+                message: "Invalid data format",
+                errors: parsedData.error.errors
+            }
+        }
+
+        const user = await prisma.user.findUnique({where: {id: session.user.id}})
+        if (!user) return {
+            success: false,
+            errorCode: 404,
+            message: "User not found"
+        }
+
+        if (parsedData.data.jenisKelamin === "laki-laki") {
+            parsedData.data.jenisKelamin = "Male" as Gender
         } else {
-            return {
-                success: false,
-                errorCode: 400,
-                message: "An error occurred while registering the user",
-            };
+            parsedData.data.jenisKelamin = "Female" as Gender
+        }
+
+        // Map the fields to match your database schema
+        await prisma.user.update({
+            where: { id: session.user.id },
+            data: {
+                gender: parsedData.data.jenisKelamin as Gender,
+                birthdate: parsedData.data.tanggalLahir,
+                phoneNumber: parsedData.data.nomorHandphone,
+                idCardNumber: parsedData.data.nomorKTP,
+                address: parsedData.data.alamat
+            }
+        })
+
+        return {
+            success: true,
+            errorCode: 200,
+            message: "Successfully updated the user bio",
+        }
+    } catch (error) {
+        console.error("Error updating user bio:", error)
+        return {
+            success: false,
+            errorCode: 500,
+            message: process.env.NODE_ENV === "development"
+                ? `Error: ${error instanceof Error ? error.message : String(error)}`
+                : "An error occurred while updating the user bio"
         }
     }
 }
