@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Star, Users } from "lucide-react"
 import Image from "next/image"
 import Logo from "@Images/logo.svg"
+import Link from "next/link"
 
 interface RecommendationsPanelProps {
   doctors: {
@@ -52,36 +53,38 @@ export function RecommendationsPanel({ doctors, isOpen, diagnosis, onClose }: Re
               <h3 className="text-xl font-bold mb-4">Rekomendasi Dokter:</h3>
               <div className="space-y-4">
                 {doctors.map((doctor, index) => (
-                  <div key={index} className="overflow-hidden rounded-lg border">
-                    <div className="p-4">
-                      <div className="flex gap-4">
-                        <div className="relative h-24 w-24 flex-shrink-0">
-                          <Image
-                            src={Logo || "/placeholder.svg"}
-                            alt={doctor.name}
-                            width={96}
-                            height={96}
-                            className="object-contain"
-                          />
-                        </div>
-                        <div className="flex flex-col justify-center">
-                          <h3 className="text-lg font-semibold">{doctor.name}</h3>
-                          <p className="text-sm text-muted-foreground">{doctor.title}</p>
-                          <Button variant="outline" size="sm" className="mt-2 w-fit">
-                            <Star className="mr-2 h-4 w-4" />
-                            Stars
-                          </Button>
+                  <Link href="/doctor">
+                    <div key={index} className="overflow-hidden rounded-lg border">
+                      <div className="p-4">
+                        <div className="flex gap-4">
+                          <div className="relative h-24 w-24 flex-shrink-0">
+                            <Image
+                              src={Logo || "/placeholder.svg"}
+                              alt={doctor.name}
+                              width={96}
+                              height={96}
+                              className="object-contain"
+                            />
+                          </div>
+                          <div className="flex flex-col justify-center">
+                            <h3 className="text-lg font-semibold">{doctor.name}</h3>
+                            <p className="text-sm text-muted-foreground">{doctor.title}</p>
+                            <Button variant="outline" size="sm" className="mt-2 w-fit">
+                              <Star className="mr-2 h-4 w-4" />
+                              Stars
+                            </Button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="flex items-center justify-between border-t bg-neutral-50 px-4 py-2">
-                      <div className="flex items-center gap-2">
-                        <Users className="h-4 w-4" />
-                        {doctor.patientCount}
+                      <div className="flex items-center justify-between border-t bg-neutral-50 px-4 py-2">
+                        <div className="flex items-center gap-2">
+                          <Users className="h-4 w-4" />
+                          {doctor.patientCount}
+                        </div>
+                        <div className="text-sm text-muted-foreground">Time: {doctor.timeMinutes} Minutes</div>
                       </div>
-                      <div className="text-sm text-muted-foreground">Time: {doctor.timeMinutes} Minutes</div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
