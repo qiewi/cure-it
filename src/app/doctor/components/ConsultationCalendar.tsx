@@ -17,6 +17,7 @@ import { ChevronDown, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { useRouter } from "next/navigation"
 
 interface ConsultationCalendarProps {
   queue: number
@@ -35,6 +36,7 @@ export function ConsultationCalendar({
   hospitalLocation = "Jakarta Barat",
   onScheduleSelected,
 }: ConsultationCalendarProps) {
+  const router = useRouter()
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
@@ -82,6 +84,7 @@ export function ConsultationCalendar({
   const handleRegister = () => {
     if (selectedDate && selectedTime && onScheduleSelected) {
       onScheduleSelected(selectedDate, selectedTime)
+      router.push("/reservation")
     }
   }
 
