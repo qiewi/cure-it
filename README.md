@@ -1,7 +1,8 @@
 <!-- INTRO -->
 <br />
 <div align="center">
-  <h1 align="center">CureIT</h1>
+  <img src="https://github.com/user-attachments/assets/e37ea6a7-1e41-4f04-b81b-3bb8d257ef9b" alt="Project Banner">
+  <h1 align="center">CureIT - Next Level of Health Management</h1>
 
   <p align="center">
     <h3> Akses Layanan Kesehatan dalam Satu Genggaman! </h3>
@@ -15,6 +16,7 @@
   </p>
 </div>
 
+## 🤖 KONTRIBUTOR
 <!-- CONTRIBUTOR -->
 <div align="center" id="contributor">
   <strong>
@@ -44,18 +46,18 @@
   </strong>
 </div>
 
-## Daftar Isi
+## 📋 Daftar Isi
 1. [Deskripsi Program](#deskripsi-program)
 2. [Fitur](#fitur)
 5. [Getting Started](#getting-started)
 6. [Hasil Deploy](#hasil-deploy)
 7. [Video Demo](#video-demo)
 
-## **Deskripsi Program**
+## 🚨 **Deskripsi Program**
 
 CureIT adalah solusi efisiensi pelayanan rumah sakit berbasis teknologi terkini yang dirancang untuk meningkatkan transparansi, efisiensi, dan kualitas layanan kesehatan. Dengan fitur utama transparansi layanan dan Chatbot AI, sistem ini memberikan diagnosis awal yang akurat dan merekomendasikan fasilitas kesehatan yang sesuai. Selain itu, CureIT menawarkan sistem terintegrasi berbasis cloud yang memastikan akses mudah, cepat, dan aman ke data pasien, termasuk informasi administrasi dan rekam medis. Dengan menggabungkan keunggulan AI dan fleksibilitas SaaS, CureIT tidak hanya meningkatkan efisiensi operasional, tetapi juga memberikan pengalaman layanan kesehatan yang lebih baik bagi pasien.
 
-## **Fitur**
+## 🔋 **Fitur**
 
 Platform yang digunakan dalam pengembangan CureIT mengadopsi teknologi web modern dengan mengimplementasikan **Progressive Web App (PWA)**.
 | Kode | Fitur           | Deskripsi                                                          |
@@ -67,23 +69,23 @@ Platform yang digunakan dalam pengembangan CureIT mengadopsi teknologi web moder
 | FD-5 | CuRecord        | Menyimpan riwayat penyakit, hasil konsultasi, dan resep obat.      |
 | FD-6 | Profile         | Menyimpan data pribadi dan preferensi kesehatan pengguna.          |
 
-## **Getting Started**
+## 🚀 **Getting Started**
 
-### **Prerequisites**
+### ⚙️ **Prerequisites**
 - Node.js
 - npm (Node Package Manager)
 - Git
 
-### **Installation**
+### 👉 **Installation**
 
-1. Clone repositori
+1. Clone repository
    ```sh
-   git clone
+   git clone https://github.com/qiewi/cure-it.git
    ```
 
-2. Instal dependensi
+2. Install dependensi
     ```sh
-    npm install
+    npm install or pnpm install
     ```
 
 3. jalankan development server:
