@@ -1,6 +1,7 @@
 <!-- INTRO -->
 <br />
 <div align="center">
+  <img src="https://github.com/user-attachments/assets/67d58879-e45a-4c12-9ea0-685c243f588b" alt="Project Banner">
   <h1 align="center">CureIT</h1>
 
   <p align="center">
@@ -78,12 +79,12 @@ Platform yang digunakan dalam pengembangan CureIT mengadopsi teknologi web moder
 
 1. Clone repositori
    ```sh
-   git clone
+   git clone https://github.com/qiewi/cure-it.git
    ```
 
 2. Instal dependensi
     ```sh
-    npm install
+    npm install or pnpm install
     ```
 
 3. jalankan development server:
