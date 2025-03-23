@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
 import { ConsultationCalendar } from "@/app/doctor/components/ConsultationCalendar"
 
 interface Doctor {
@@ -50,11 +49,6 @@ export function DoctorScheduleSection({ doctor, hospital, schedules }: DoctorSch
           onScheduleSelected={handleScheduleSelected}
         />
       </section>
-
-      {/* Order Service Button */}
-      <div className="mb-8">
-        <Button className="w-full bg-primary-200 hover:bg-primary-300 py-6 text-lg">PESAN LAYANAN</Button>
-      </div>
     </>
   )
 }

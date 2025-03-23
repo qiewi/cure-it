@@ -2,21 +2,21 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import Logo from "@Images/logo.svg"
-import { Bell, Home, Menu, MessageSquare, Settings, List, LogIn } from "lucide-react"
+import { Bell, Home, Menu, MessageSquare, Settings, List, LogIn, LogOut } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { type Session } from "next-auth";
-import {signOut} from "next-auth/react";
+import type { Session } from "next-auth"
+import { signOut } from "next-auth/react"
 
 interface NavbarProps {
-  children: React.ReactNode;
-  session: Session | null;
+  children: React.ReactNode
+  session: Session | null
 }
 
 export function Navbar({ children, session }: NavbarProps) {
@@ -59,6 +59,19 @@ export function Navbar({ children, session }: NavbarProps) {
             </Link>
           </Button>
         </div>
+        <div className="flex flex-col items-center gap-4 mb-4">
+          {isLoggedIn && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-xl text-red-500 hover:bg-red-50 hover:text-red-600"
+              onClick={handleLogout}
+            >
+              <LogOut className="h-5 w-5" />
+              <span className="sr-only">Logout</span>
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Main Content Area with Fixed Header */}
@@ -79,12 +92,12 @@ export function Navbar({ children, session }: NavbarProps) {
           <div className="flex items-center gap-4">
             {/* Desktop Navigation */}
             <div className="hidden items-center gap-4 md:flex">
-                <Button variant="ghost" size="icon" className="rounded-full" asChild>
-                  <Link href="/notifications">
-                    <Bell className="h-5 w-5" />
-                    <span className="sr-only">Notifications</span>
-                  </Link>
-                </Button>
+              <Button variant="ghost" size="icon" className="rounded-full" asChild>
+                <Link href="/notifications">
+                  <Bell className="h-5 w-5" />
+                  <span className="sr-only">Notifications</span>
+                </Link>
+              </Button>
 
               {isLoggedIn ? (
                 <Link
@@ -95,11 +108,11 @@ export function Navbar({ children, session }: NavbarProps) {
                     <AvatarImage src={user?.image || undefined} />
                     <AvatarFallback>
                       {user?.name
-                          ? user.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")
-                          : "U"}
+                        ? user.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")
+                        : "U"}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col">
@@ -143,7 +156,7 @@ export function Navbar({ children, session }: NavbarProps) {
                       <div className="flex flex-col">
                         <Link
                           href="/"
-                          className="flex items-center gap-3 rounded-lg border-b px-3 py-4 text-black transition-colors hover:bg-accent"
+                          className="flex items-center gap-3 border-b px-3 py-4 text-black transition-colors hover:bg-accent"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           <Home className="h-6 w-6" />
@@ -151,7 +164,7 @@ export function Navbar({ children, session }: NavbarProps) {
                         </Link>
                         <Link
                           href="/curebot"
-                          className="flex items-center gap-3 rounded-lg border-b px-3 py-4 text-black transition-colors hover:bg-accent"
+                          className="flex items-center gap-3 border-b px-3 py-4 text-black transition-colors hover:bg-accent"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           <MessageSquare className="h-6 w-6" />
@@ -159,7 +172,7 @@ export function Navbar({ children, session }: NavbarProps) {
                         </Link>
                         <Link
                           href="/history"
-                          className="flex items-center gap-3 rounded-lg px-3 py-4 text-black transition-colors hover:bg-accent"
+                          className="flex items-center gap-3 px-3 py-4 text-black transition-colors hover:bg-accent"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           <List className="h-6 w-6" />
@@ -170,6 +183,23 @@ export function Navbar({ children, session }: NavbarProps) {
 
                     {/* Lower Section */}
                     <div>
+
+                      {isLoggedIn && (
+                        <div className="px-3">
+                          <Button
+                            variant="ghost"
+                            className="w-full justify-start gap-3 rounded-lg px-6 py-2 text-red-500 hover:bg-red-50 hover:text-red-600"
+                            onClick={() => {
+                              setIsMobileMenuOpen(false)
+                              handleLogout()
+                            }}
+                          >
+                            <LogOut className="h-6 w-6" />
+                            <span className="text-xl">Logout</span>
+                          </Button>
+                        </div>
+                      )}
+
                       {isLoggedIn ? (
                         <Link
                           href="/profile"
