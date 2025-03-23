@@ -1,4 +1,4 @@
-import { NotificationsContainer } from "@/app/notifications/components/NotificationsContainer"
+import { HistoryContainer } from "@/app/history/components/HistoryContainer"
 
 // Sample notifications data
 const initialNotifications = [
@@ -24,8 +24,8 @@ const initialNotifications = [
 
 export default function NotificationsPage() {
   return (
-    <div className="container mx-auto max-w-3xl p-4 mt-4 px-4 md:px-6">
-      <NotificationsContainer initialNotifications={initialNotifications} />
+    <div className="container mx-auto max-w-3xl p-4 mt-4 px-4 md:px-6 md:max-w-full">
+      <HistoryContainer initialHistory={initialNotifications} />
     </div>
   )
 }

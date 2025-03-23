@@ -4,6 +4,7 @@ import type React from "react"
 import { useRouter } from "next/navigation"
 import { FaUsers } from "react-icons/fa"
 import { useEffect, useState } from "react"
+import Image from "next/image"
 
 interface DoctorCardProps {
   id: number
@@ -34,13 +35,15 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ id, image, name, specialty, pri
     <div
       className="cursor-pointer border border-neutral-300 rounded-lg shadow-sm bg-neutral-50 overflow-hidden"
       onClick={() => router.push(`/doctor`)}
-      style={isMobile ? { width: "100%", maxWidth: "280px" } : { width: "270px" }}
+      style={isMobile ? { width: "100%" } : { width: "270px" }}
     >
       {/* 📱 Jika layar mobile, tampilkan layout mobile */}
       {isMobile ? (
         <div className="flex gap-3 p-3">
           {/* Gambar Dokter */}
-          <img src={image || "/placeholder.svg"} alt={name} className="w-[70px] h-[70px] object-cover rounded-lg" />
+          <div className="relative w-[70px] h-[70px] flex-shrink-0">
+              <Image src={image || "/placeholder.svg"} alt={name} fill className="object-cover rounded-lg" />
+          </div>
 
           {/* Informasi Dokter */}
           <div className="flex flex-col justify-between">
@@ -56,10 +59,12 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ id, image, name, specialty, pri
         <div className="overflow-hidden shadow-md bg-neutral-50">
           {/* Gambar Dokter */}
           <div className="relative w-full h-[184px] bg-neutral-200 flex items-center justify-center">
-            <img
+            <Image
               src={image || "/placeholder.svg"}
               alt={name}
-              className="w-32 h-32 rounded-full object-cover border-4 border-neutral-50 shadow-md"
+              width={400}
+              height={250}
+              className="w-full h-40 object-cover"
             />
           </div>
 

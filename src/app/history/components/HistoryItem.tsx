@@ -9,7 +9,7 @@ import Doctor from "@Images/doctor.svg"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-interface NotificationItemProps {
+interface HistoryItemProps {
   idReservasi: number
   image: string
   status: "unopened" | "opened"
@@ -17,7 +17,7 @@ interface NotificationItemProps {
   onStatusChange?: (id: number) => void
 }
 
-export function NotificationItem({ idReservasi, image, status, time, onStatusChange }: NotificationItemProps) {
+export function HistoryItem({ idReservasi, image, status, time, onStatusChange }: HistoryItemProps) {
   const router = useRouter()
   const [currentStatus, setCurrentStatus] = useState(status)
 
@@ -41,7 +41,7 @@ export function NotificationItem({ idReservasi, image, status, time, onStatusCha
     <div
       onClick={handleClick}
       className={cn(
-        "relative flex items-center gap-4 rounded-2xl p-4 transition-colors cursor-pointer",
+        "relative flex items-center gap-4 rounded-2xl p-4 md:p-6 transition-colors cursor-pointer",
         currentStatus === "unopened" ? "bg-primary-50 hover:bg-primary-100" : "bg-neutral-100 hover:bg-neutral-200",
       )}
     >
@@ -56,8 +56,8 @@ export function NotificationItem({ idReservasi, image, status, time, onStatusCha
         </div>
       </div>
       <div className="flex-1 space-y-1">
-        <h3 className="font-semibold text-[10px] md:text-sm">Penjadwalan Anda Disetujui</h3>
-        <p className="text-muted-foreground text-[8px] md:text-xs">Silakan tekan notifikasi ini untuk membuka reservasi Anda</p>
+        <h3 className="font-semibold text-[10px] md:text-lg">Penjadwalan Anda Disetujui</h3>
+        <p className="text-muted-foreground text-[8px] md:text-sm">Silakan tekan notifikasi ini untuk membuka reservasi Anda</p>
       </div>
       <div className="flex flex-col items-center">
         <span className="text-xs md:text-sm text-muted-foreground whitespace-nowrap">{formatTime(time)}</span>

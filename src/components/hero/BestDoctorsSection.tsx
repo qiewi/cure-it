@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import DoctorCard from "@/components/ui/doctorCard"
+import DoctorCard from "@/components/ui/DoctorCard"
 import { useMediaQuery } from "@/hooks/use-mobile"
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
@@ -38,9 +38,6 @@ export function BestDoctorsSection({ doctors }: BestDoctorsSectionProps) {
         <p className="text-xs text-neutral-600 mb-3 md:text-lg">
           Berikut adalah beberapa dokter yang kami rekomendasikan untuk Anda!
         </p>
-        <Link href="/search/doctor" className="text-xs md:text-sm flex items-center mr-4">
-          Lihat selengkapnya <ChevronRight className="h-4 w-4" />
-        </Link>
       </div>
       
 

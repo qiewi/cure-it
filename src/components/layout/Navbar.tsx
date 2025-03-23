@@ -53,17 +53,9 @@ export function Navbar({ children, session }: NavbarProps) {
             </Link>
           </Button>
           <Button variant="ghost" size="icon" className="rounded-xl" asChild>
-            <Link href="/appointments">
+            <Link href="/history">
               <List className="h-5 w-5" />
               <span className="sr-only">Appointments</span>
-            </Link>
-          </Button>
-        </div>
-        <div className="flex flex-col items-center gap-4 mb-4">
-          <Button variant="ghost" size="icon" className="rounded-xl" asChild>
-            <Link href="/settings">
-              <Settings className="h-5 w-5" />
-              <span className="sr-only">Settings</span>
             </Link>
           </Button>
         </div>
@@ -158,15 +150,15 @@ export function Navbar({ children, session }: NavbarProps) {
                           <span className="text-xl">Home</span>
                         </Link>
                         <Link
-                          href="/chat"
+                          href="/curebot"
                           className="flex items-center gap-3 rounded-lg border-b px-3 py-4 text-black transition-colors hover:bg-accent"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           <MessageSquare className="h-6 w-6" />
-                          <span className="text-xl">Triage</span>
+                          <span className="text-xl">ChatBot</span>
                         </Link>
                         <Link
-                          href="/appointments"
+                          href="/history"
                           className="flex items-center gap-3 rounded-lg px-3 py-4 text-black transition-colors hover:bg-accent"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
@@ -178,15 +170,6 @@ export function Navbar({ children, session }: NavbarProps) {
 
                     {/* Lower Section */}
                     <div>
-                      <Link
-                        href="/settings"
-                        className="flex items-center gap-3 rounded-lg px-6 py-2 text-black transition-colors hover:bg-accent"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        <Settings className="h-6 w-6" />
-                        <span className="text-xl">Settings</span>
-                      </Link>
-
                       {isLoggedIn ? (
                         <Link
                           href="/profile"
