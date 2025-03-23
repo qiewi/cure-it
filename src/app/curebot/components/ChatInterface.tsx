@@ -9,15 +9,17 @@ import {cn} from "@/lib/utils"
 import {v4 as uuidv4} from 'uuid'
 import {createThread, sendMessage} from "@/action/ChatBot"
 
+interface Doctor {
+    name: string
+    title: string
+    price: number
+    patientCount: number
+    timeMinutes: number
+}
+
 interface ChatInterfaceProps {
     initialMessages: { type: "system" | "user"; content: string }[]
-    doctors: {
-        name: string
-        title: string
-        price: string
-        patientCount: number
-        timeMinutes: number
-    }[]
+    doctors: Doctor[]
 }
 
 interface Message {
@@ -27,14 +29,17 @@ interface Message {
 }
 
 interface Response {
-    model_status: string,
-    question: string,
-    diagnosis: {
-        diagnosa: string,
-        pertolongan_pertama: string,
-        kesimpulan: string,
+    content: {
+        model_status: string,
+        question: string,
+        diagnosis: {
+            diagnosa: string,
+            pertolongan_pertama: string,
+            kesimpulan: string,
+        },
+        gejala: string[],
     },
-    gejala: string[],
+    doctors: Doctor[]
 }
 
 export function ChatInterface({initialMessages, doctors}: ChatInterfaceProps) {
@@ -45,6 +50,7 @@ export function ChatInterface({initialMessages, doctors}: ChatInterfaceProps) {
     const [isLoading, setIsLoading] = useState(false)
     const [diagnosis, setDiagnosis] = useState<string[]>([])
     const messagesEndRef = useRef<HTMLDivElement>(null)
+    const [doctor, setDoctor] = useState<Doctor[]>(doctors)
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({behavior: "smooth"})
@@ -81,18 +87,21 @@ export function ChatInterface({initialMessages, doctors}: ChatInterfaceProps) {
         setIsLoading(true)
         try {
             const response = await sendMessage(threadId, message)
-            const parsedResponse = JSON.parse(response.content) as Response
-            if (parsedResponse.model_status == "tidak yakin") {
+            // Remove this JSON.parse - the response is already an object
+            // const parsedResponse = JSON.parse(response.content) as Response
+
+            if (response.content.model_status === "tidak yakin") {
                 setMessages(prev => [...prev, {
                     type: "system",
-                    content: parsedResponse.question || "I'm not sure how to respond to that."
+                    content: response.content.question || "I'm not sure how to respond to that."
                 }])
             } else {
                 setMessages(prev => [...prev, {
                     type: "system",
-                    content: `${parsedResponse.diagnosis.diagnosa} \n ${parsedResponse.diagnosis.pertolongan_pertama} \n ${parsedResponse.diagnosis.kesimpulan}`|| "I'm not sure how to respond to that."
+                    content: `${response.content.diagnosis.diagnosa} \n\n ${response.content.diagnosis.pertolongan_pertama} \n\n ${response.content.diagnosis.kesimpulan}`|| "I'm not sure how to respond to that."
                 }])
-                setDiagnosis(parsedResponse.gejala)
+                setDiagnosis(response.content.gejala)
+                setDoctor(response.doctors)
             }
         } catch (error) {
             console.error("Failed to send message:", error)
@@ -138,7 +147,7 @@ export function ChatInterface({initialMessages, doctors}: ChatInterfaceProps) {
 
             {isRecommendationsOpen && (
                 <RecommendationsPanel
-                    doctors={doctors}
+                    doctors={doctor}
                     isOpen={isRecommendationsOpen}
                     diagnosis={diagnosis}
                     onClose={() => setIsRecommendationsOpen(false)

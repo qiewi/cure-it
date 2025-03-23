@@ -105,10 +105,14 @@ model Authenticator {
 model Doctor {
   id           String     @id @default(cuid())
   name         String
+  title        String
+  price        Int
+  patientCount Int
+  timeMinutes  Int
   image        String?
   speciality   String
   rumahSakitId String
-  rumahSakit   RumahSakit @relation(fields: [rumahSakitId], references: [id])
+  rumahSakit   RumahSakit? @relation(fields: [rumahSakitId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -117,9 +121,6 @@ model Doctor {
 model RumahSakit {
   id          String  @id @default(cuid())
   name        String
-  email       String
-  phoneNumber String
-  address     String
   image       String?
 
   createdAt DateTime @default(now())

@@ -1,22 +1,14 @@
 import { ChatInterface } from "@/app/curebot/components/ChatInterface"
 
 // Sample doctor data
-const doctors = [
-  {
-    name: "Doctor Name",
-    title: "Dr. Title",
-    price: "Rp 40.000,00",
-    patientCount: 22,
-    timeMinutes: 15,
-  },
-  {
-    name: "Doctor Name",
-    title: "Dr. Title",
-    price: "Rp 40.000,00",
-    patientCount: 22,
-    timeMinutes: 15,
-  },
-]
+const doctors: {
+  name: string
+  title: string
+  price: string
+  patientCount: number
+  timeMinutes: number
+}[]
+ = []
 
 export default function ChatPage() {
   return (
