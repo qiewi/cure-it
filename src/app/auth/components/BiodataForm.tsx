@@ -78,12 +78,12 @@ export function BiodataForm() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-start text-3xl font-bold mt-12 mb-2">
+        <h2 className="text-start text-xl md:text-3xl font-bold mt-12 mb-2">
           Beritahu kami {""}
-          <br />
+          <br className="hidden md:block" />
           tentang Anda!
         </h2>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground text-xs md:text-base">
           Informasi yang Anda berikan akan terjamin kerahasiaannya dan hanya digunakan untuk CureIT
         </p>
       </div>
@@ -170,7 +170,7 @@ export function BiodataForm() {
                     </div>
                     <Input
                       placeholder="Masukkan nomor handphone"
-                      className="pl-10"
+                      className="pl-10 text-sm "
                       {...field}
                       type="tel"
                       inputMode="numeric"
@@ -195,7 +195,7 @@ export function BiodataForm() {
                     </div>
                     <Input
                       placeholder="Masukkan 16 digit nomor KTP"
-                      className="pl-10"
+                      className="pl-10 text-sm"
                       {...field}
                       type="text"
                       inputMode="numeric"
@@ -219,7 +219,7 @@ export function BiodataForm() {
                     <div className="absolute left-3 top-3 text-gray-400">
                       <MapPin size={20} />
                     </div>
-                    <Textarea placeholder="Masukkan alamat lengkap" className="min-h-[100px] pl-10" {...field} />
+                    <Textarea placeholder="Masukkan alamat lengkap" className="min-h-[100px] pl-10 text-sm" {...field} />
                   </div>
                 </FormControl>
                 <FormMessage className="text-red-500" />
@@ -227,7 +227,7 @@ export function BiodataForm() {
             )}
           />
 
-          <Button type="submit" className="w-full bg-primary-200 hover:bg-primary-300 mt-6">
+          <Button type="submit" className="w-full bg-primary-200 hover:bg-primary-300 mt-2 mb-2">
             Lanjutkan
           </Button>
         </form>
