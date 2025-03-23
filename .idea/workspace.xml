@@ -6,10 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="69b52719-c81d-43a9-9cc2-07a63192bc91" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/curebot/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/curebot/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/doctor/components/SimilarDoctorsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/doctor/components/SimilarDoctorsSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/hospital/components/DoctorsList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/hospital/[id]/components/DoctorsList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/hospital/components/HospitalHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/hospital/[id]/components/HospitalHeader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/hospital/components/SeeOtherHospitals.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/hospital/[id]/components/SeeOtherHospitals.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/hospital/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/hospital/[id]/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/hospital/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/hospital/[id]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/search/doctor/components/DoctorGrid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/search/doctor/components/DoctorGrid.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/hero/BestDoctorsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/hero/BestDoctorsSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,25 +49,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/BE/Initialize&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/mfauzanazhim/Documents/GitHub/cure-it&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\Code\\Next Js\\cure-it\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "/Users/mfauzanazhim/Documents/GitHub/cure-it",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "D:\\Code\\Next Js\\cure-it\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Code\Next Js\cure-it\src\app\hospital\[id]" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>

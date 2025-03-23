@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
-import DoctorCard from "@/components/ui/DoctorCard"
+import DoctorCard from "@/components/ui/doctorCard"
 
 interface Doctor {
   id: number

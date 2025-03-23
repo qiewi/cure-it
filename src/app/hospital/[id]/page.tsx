@@ -1,8 +1,9 @@
+"use server"
+
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
-import { HospitalHeader } from "@/app/hospital/components/HospitalHeader"
+import { HospitalHeader } from "@/app/hospital/[id]/components/HospitalHeader"
 import { SpecializationsSection } from "@/components/hero/SpecializationsSection"
-import { SeeOtherHospitals } from "@/app/hospital/components/SeeOtherHospitals"
 import { BestDoctorsSection } from "@/components/hero/BestDoctorsSection"
 import HospitalCard from "@/components/ui/HospitalCard"
 
@@ -96,8 +97,12 @@ const similarHospitals = [
   },
 ]
 
-export default function HospitalDetailPage({ params }: { params: { id: string } }) {
-  const hospitalId = Number.parseInt(params.id)
+export default async function HospitalDetailPage({
+  params
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const hospitalId = parseInt((await params).id)
 
   return (
     <div className="flex flex-col min-h-screen bg-white items-center mx-auto -mt-4 relative z-10 mb-12">

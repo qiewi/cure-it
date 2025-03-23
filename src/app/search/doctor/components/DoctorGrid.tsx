@@ -1,7 +1,7 @@
 "use client"
 
 import { useMediaQuery } from "@/hooks/use-mobile"
-import DoctorCard from "@/components/ui/DoctorCard"
+import DoctorCard from "@/components/ui/doctorCard"
 
 interface Doctor {
   id: number
