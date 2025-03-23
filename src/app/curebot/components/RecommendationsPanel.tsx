@@ -67,7 +67,6 @@ export function RecommendationsPanel({ doctors, isOpen, diagnosis, onClose }: Re
                         <div className="flex flex-col justify-center">
                           <h3 className="text-lg font-semibold">{doctor.name}</h3>
                           <p className="text-sm text-muted-foreground">{doctor.title}</p>
-                          <p className="mt-1">{doctor.price}</p>
                           <Button variant="outline" size="sm" className="mt-2 w-fit">
                             <Star className="mr-2 h-4 w-4" />
                             Stars
