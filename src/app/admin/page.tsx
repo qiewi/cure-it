@@ -37,7 +37,7 @@ interface Patient {
   status: string
   consultationStatus: PatientStatus
   notes: string
-  date: Date // Added date field for filtering
+  date: Date
 }
 
 // Generate a more diverse set of patient data

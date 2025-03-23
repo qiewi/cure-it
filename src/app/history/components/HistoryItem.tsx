@@ -34,7 +34,7 @@ export function HistoryItem({ idReservasi, image, status, time, onStatusChange }
       setCurrentStatus("opened")
       onStatusChange?.(idReservasi)
     }
-    router.push(`/reservasi`)
+    router.push(`/reservation`)
   }
 
   return (

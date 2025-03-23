@@ -10,7 +10,7 @@ interface RecommendationsPanelProps {
   doctors: {
     name: string
     title: string
-    price: string
+    price: number
     patientCount: number
     timeMinutes: number
   }[]

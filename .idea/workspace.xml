@@ -6,15 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="69b52719-c81d-43a9-9cc2-07a63192bc91" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/doctor/components/SimilarDoctorsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/doctor/components/SimilarDoctorsSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/hospital/components/DoctorsList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/hospital/[id]/components/DoctorsList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/hospital/components/HospitalHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/hospital/[id]/components/HospitalHeader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/hospital/components/SeeOtherHospitals.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/hospital/[id]/components/SeeOtherHospitals.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/hospital/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/hospital/[id]/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/hospital/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/hospital/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/search/doctor/components/DoctorGrid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/search/doctor/components/DoctorGrid.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/hero/BestDoctorsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/hero/BestDoctorsSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/action/ChatBot.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/action/ChatBot.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/admin/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/admin/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/curebot/components/ChatInterface.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/curebot/components/ChatInterface.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/curebot/components/RecommendationsPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/curebot/components/RecommendationsPanel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/curebot/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/curebot/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

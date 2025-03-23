@@ -56,9 +56,9 @@ export default function ReservationPage() {
         schedule: "Hari ini, 12:00 - 14:40 WIB",
       }}
       prescriptions={[
-        { name: "Obat 1", price: "Item" },
-        { name: "Obat 2", price: "Item" },
-        { name: "Obat 3", price: "Item" },
+        { name: "Ultraflu PE 4 Tablet", price: "Rp4.500" },
+        { name: "Demacolin Strip isi 10 Tablet", price: "Rp6.700" },
+        { name: "Decolgen Strip isi 4 Tablet ", price: "Rp2.300" },
       ]}
     />
   )

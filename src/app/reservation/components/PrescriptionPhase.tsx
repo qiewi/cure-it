@@ -12,14 +12,14 @@ interface PrescriptionPhaseProps {
       <div className="space-y-4">
         <div className="rounded-lg bg-white p-3 sm:p-6 shadow-sm">
           <div className="mb-3 sm:mb-4 flex justify-between border-b pb-2">
-            <h3 className="font-semibold text-sm sm:text-base">Prescription</h3>
+            <h3 className="font-semibold text-sm sm:text-base">Obat</h3>
             <h3 className="font-semibold text-sm sm:text-base">Harga</h3>
           </div>
           <div className="space-y-3 sm:space-y-4">
             {prescriptions.map((prescription, index) => (
               <div key={index} className="flex justify-between text-sm sm:text-base">
-                <span>Obat</span>
-                <span>Item</span>
+                <span>{prescription.name}</span>
+                <span>{prescription.price}</span>
               </div>
             ))}
           </div>

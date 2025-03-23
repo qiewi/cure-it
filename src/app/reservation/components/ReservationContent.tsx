@@ -123,7 +123,7 @@ export function ReservationContent({
 
   return (
     <div className="min-h-screen bg-white">
-      <div className={`mx-auto ${isDesktop ? "max-w-6xl px-6 py-8" : "max-w-lg px-2"}`}>
+      <div className={`mx-auto ${isDesktop ? "max-w-6xl px-6 py-8" : "max-w-lg"}`}>
         {isDesktop ? (
           <div>
             <h1 className="text-2xl font-semibold mb-2">Status Layanan</h1>
@@ -143,16 +143,13 @@ export function ReservationContent({
                   ref={timelineRef}
                   className="space-y-6 max-h-[400px] pl-4 w-full overflow-y-auto pr-4 pb-4 snap-y snap-mandatory"
                 >
-                  {/* Create a circular timeline by repeating phases */}
-                  {[...Array(6)].map((_, index) => {
-                    // Calculate which phase to show (using modulo to create circular effect)
-                    const phaseIndex = index % phases.length
-                    const phase = phases[phaseIndex]
-                    const isActive = currentPhase === phase && Math.floor(index / phases.length) === 1
+                  {/* Show only the 3 phase cards */}
+                  {phases.map((phase, index) => {
+                    const isActive = currentPhase === phase
 
                     return (
                       <div
-                        key={`${phase}-${index}`}
+                        key={phase}
                         className={`relative cursor-pointer snap-start transition-all duration-300 ${
                           isActive ? "opacity-100" : "opacity-60 hover:opacity-80"
                         }`}
@@ -181,7 +178,7 @@ export function ReservationContent({
                             <Users size={16} />
                             <span>{phaseInfo[phase].title}</span>
                             <span className="ml-auto">
-                              {phaseIndex + 1} / {phases.length}
+                              {index + 1} / {phases.length}
                             </span>
                           </div>
                           <p className="text-xs text-primary-200">{phaseInfo[phase].description}</p>
