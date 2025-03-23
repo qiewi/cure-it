@@ -68,6 +68,15 @@ export function BiodataForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "onTouched", // Only validate on blur or submit
+    // Fix for uncontrolled to controlled input warning:
+    // Initialize all form fields with empty values
+    defaultValues: {
+      jenisKelamin: "",
+      tanggalLahir: undefined,
+      nomorHandphone: "",
+      nomorKTP: "",
+      alamat: "",
+    },
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -96,7 +105,7 @@ export function BiodataForm() {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Jenis Kelamin</FormLabel>
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select onValueChange={field.onChange} value={field.value || ""}>
                   <FormControl>
                     <div className="relative w-full">
                       <div className="absolute left-3 top-3 text-gray-400 z-10">
@@ -172,6 +181,7 @@ export function BiodataForm() {
                       placeholder="Masukkan nomor handphone"
                       className="pl-10 text-sm "
                       {...field}
+                      value={field.value || ""}
                       type="tel"
                       inputMode="numeric"
                     />
@@ -197,6 +207,7 @@ export function BiodataForm() {
                       placeholder="Masukkan 16 digit nomor KTP"
                       className="pl-10 text-sm"
                       {...field}
+                      value={field.value || ""}
                       type="text"
                       inputMode="numeric"
                       maxLength={16}
@@ -219,7 +230,12 @@ export function BiodataForm() {
                     <div className="absolute left-3 top-3 text-gray-400">
                       <MapPin size={20} />
                     </div>
-                    <Textarea placeholder="Masukkan alamat lengkap" className="min-h-[100px] pl-10 text-sm" {...field} />
+                    <Textarea
+                      placeholder="Masukkan alamat lengkap"
+                      className="min-h-[100px] pl-10 text-sm"
+                      {...field}
+                      value={field.value || ""}
+                    />
                   </div>
                 </FormControl>
                 <FormMessage className="text-red-500" />
